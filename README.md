@@ -1,68 +1,85 @@
-# MAW11-ABE-NUI
+# MAW11-ABE
 
 ## Description
 
-This project is designed to .... and the main features are ...
+This project is a recreation of a website called "Exercise Looper." Its main functions include creating new exercises, allowing users to answer existing exercises, and displaying the answers to those exercises.
 
 ## Getting Started
 
 ### Prerequisites
 
-List all dependencies and their version needed by the project as :
-
--   DataBase Engine (MySql, PostgreSQL, MSSQL,...)
--   IDE used (PhpStorm, Visual Studio Code, IntelliJ,...)
--   Package manager (Nuget, Composer, npm, ...)
--   OS supported (W2k22, Debian12,...)
--   Virtualization (Docker, .Net, .JDK, .JRE)
+-   PHP Version: 8.3.11
+-   Xdebug Version: 3.3.2
+-   IDE: Visual Studio Code
+-   Package Manager: Composer
 
 ### Configuration
 
-How to set up the database?
-How do you set the sensitive data?
+-   **Database Setup**: The project uses a `.env` file to store database credentials. It is up to the developer to choose the database engine and set the corresponding credentials in the `.env` file.
+
+    Example `.env` configuration:
+
+    ```env
+    DATABASE_HOST=127.0.0.1
+    DATABASE_PORT=3306
+    DATABASE_NAME=your_database_name
+    DATABASE_USERNAME=your_username
+    DATABASE_PASSWORD=your_password
+    ```
 
 ## Deployment
 
 ### On dev environment
 
-How to get dependencies and build?
-How to run the tests?
+1. Clone the repository.
 
-### On integration environment
+```bash
+git clone https://github.com/CPNV-ES/MAW11-ABE
+cd MAW11-ABE
+```
 
-How to deploy the application outside the dev environment.
+2. Use the Composer command to install the dependencies:
+
+```bash
+composer install
+```
+
+3. Rename the .env.example file to .env.
+
+```bash
+cp .env.example .env
+```
+
+4. Run the web project locally using:
+
+```bash
+php -S localhost:8888 -t public
+```
 
 ## Directory structure
 
--   Tip: try the tree bash command
+The project follows the MVC (Model-View-Controller) structure:
 
 ```shell
-├───Docs
-├───Shopping                                        //classes and packages
-│   ├───bin                                         //the binary to deploy on the end-user environment
-│   │   └───Debug
-│   └───obj
-│       └───Debug
-└───TestShopping                                    //test classes
-    ├───bin
-    │   └───Debug
-    └───obj
-        └───Debug
+├───public
+│   ├───css
+│   ├───img
+│   └───index.php
+└───src
+    ├───Controllers
+    ├───Models
+    └───Views
+└───tests
 ```
 
 ## Collaborate
 
--   Take time to read some readme and find the way you would like to help other developers collaborate with you.
-
--   They need to know:
-    -   How to propose a new feature (issue, pull request)
-    -   [How to commit](https://www.conventionalcommits.org/en/v1.0.0/)
-    -   [How to use your workflow](https://nvie.com/posts/a-successful-git-branching-model/)
-
-## License
-
--   [Choose the license adapted to your project](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository).
+-   If you found an issue, want to request different functionality or other, please create a GitHub issue.
+-   If you want to add new features yourself, please create a pull request.
+-   There are no specific guidelines for contributing to this project.
 
 ## Contact
 
--   How to get in contact with you? Discord, Trello, Issue?
+If you need to contact me, send me an email at:
+
+-   arthur.bottemanne@eduvaud.ch
