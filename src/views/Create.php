@@ -2,26 +2,32 @@
 
 //initialize page variables
 $title = "ExerciseLooper";
-$style = '<link rel="stylesheet" href="/css/create_style.css">';
+$style = '<link rel="stylesheet" href="/css/Create.css">';
 ob_start();
 
 ?>
 
-<header>
-    <div class="logo-container">
-        <a href="home.php">
-            <img src="/img/logo.png" alt="Logo" class="logo">
-        </a>
-    </div>
-    <h1>New Exercise</h1>
+
+<header class="heading managing">
+    <section class="container">
+        <a href="/"> <img src="/img/logo.png" alt="Logo" class="logo"> </a>
+        <span class="exercise-label">New exercise</span>
+    </section>
 </header>
 
-<main>
-    <form action="/exercises" method="POST" class="exercise-form">
-        <label for="title">Title</label>
-        <input type="text" id="title" name="title" required>
+<main class="container">
+    <h1>New Exercise</h1>
 
-        <button type="submit" class="btn purple">Create Exercise</button>
+    <form action="/exercises" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="/HfdEImdtV4/XIdB53jcsjYbLUvBfg22I5rFpg0+G6a9Xb+9pk5+50F3o0EontYy3Sl3l97prWQsBeRtIAir7A==" />
+
+        <div class="field">
+            <label for="exercise_title">Title</label>
+            <input type="text" name="exercise[title]" id="exercise_title" />
+        </div>
+
+        <div class="actions">
+            <input type="submit" name="commit" value="Create Exercise" data-disable-with="Create Exercise" />
+        </div>
     </form>
 </main>
 
