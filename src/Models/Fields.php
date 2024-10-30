@@ -4,8 +4,8 @@ namespace App\Models;
 
 class Fields extends Model
 {
-    public static function addField($title, $field_types, $exercises_id)
+    public static function addField($title, $fieldType, $exerciseId)
     {
-        parent::insert(["title", "field_types", "exercises_id"], ["title" => $title, "field_types" => $field_types, "exercises_id" => $exercises_id]);
+        parent::insert(["title", "field_types_id", "exercises_id"], ["title" => $title, "field_types_id" => $fieldType, "exercises_id" => $exerciseId]);
     }
 }

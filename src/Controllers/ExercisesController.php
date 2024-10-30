@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\Exercises;
+use App\Models\Fields;
+use App\Models\FieldTypes;
 
 class ExercisesController extends Controller
 {
@@ -13,6 +15,17 @@ class ExercisesController extends Controller
         $exerciseData = Exercises::addExercise($name)[0];
 
         header("Location: /exercises/" . $exerciseData['id'] . "/fields");
+    }
+
+    public static function createField($parameters)
+    {
+        $fieldTitle = $_POST["field"]["label"];
+        $fieldType = FieldTypes::GetFieldTypeId($_POST["field"]["value_kind"]);
+        $exerciseId = $parameters["exerciseId"];
+
+        Fields::addField($fieldTitle, $fieldType, $exerciseId)[0];
+
+        header("Location: /exercises/" . $exerciseId . "/fields");
     }
 
     public static function showAnswering()
