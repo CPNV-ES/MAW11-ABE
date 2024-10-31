@@ -36,8 +36,8 @@ $router->addRoute(new Route('GET', '/', [Controller::class, '/home.php']));
 $router->addRoute(new Route('GET', '/exercises/new', [Controller::class, '/create.php']));
 $router->addRoute(new Route('GET', '/exercises/answering', [ExercisesController::class, 'ShowAnswering']));
 $router->addRoute(new Route('GET', '/exercises/{exerciseId}/fields', [FieldsController::class, 'viewExerciseFields']));
+$router->addRoute(new Route('GET', '/exercises/{exerciseId}', [ExercisesController::class, 'updateExercise']));
 $router->addRoute(new Route('POST', '/exercises', [ExercisesController::class, 'create']));
-$router->addRoute(new Route('POST', '/exercises/{exerciseId}/status', [ExercisesController::class, 'updateStatus']));
 $router->addRoute(new Route('POST', '/exercises/{exerciseId}/fields', [FieldsController::class, 'createField']));
 
 $router->matchRoute();
