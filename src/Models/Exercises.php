@@ -18,4 +18,9 @@ class Exercises extends Model
     {
         parent::update(["exercise_status"], "id", ["exercise_status" => $exercise_status, "id" => $id]);
     }
+
+    public static function deleteExerciseFromId($id)
+    {
+        parent::delete("id", $id);
+    }
 }

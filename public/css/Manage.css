@@ -1,0 +1,51 @@
+table.records td:last-child {
+    text-align: right;
+}
+
+td:last-child,
+th:last-child {
+    padding-right: 0;
+}
+
+main.container {
+    margin-top: 5rem;
+}
+
+img {
+    max-width: 100%;
+}
+
+header.heading img {
+    height: 100%;
+}
+
+a {
+    background-color: transparent;
+}
+
+header.heading section {
+    display: flex;
+    height: 5rem;
+}
+
+.results {
+    border-color: #419d78;
+    background-color: #419d78;
+}
+
+header.heading {
+    height: 5rem;
+    color: white;
+    display: block;
+    left: 0;
+    max-width: 100%;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+header.results {
+    background-color: #419d78;
+}
