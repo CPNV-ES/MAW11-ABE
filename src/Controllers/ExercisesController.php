@@ -22,6 +22,15 @@ class ExercisesController extends Controller
         include_once VIEW_DIR . "/TakeExercise.php";
     }
 
+    public static function manageExercise()
+    {
+        $exercises["building"] = Exercises::findAllByStatus("building");
+        $exercises["answering"] = Exercises::findAllByStatus("answering");
+        $exercises["closed"] = Exercises::findAllByStatus("closed");
+
+        include_once VIEW_DIR . "/Manage.php";
+    }
+
     public static function updateExercise($parameters)
     {
         $data = parent::fetchModelDataByIds($parameters);
