@@ -28,6 +28,6 @@ class ExercisesController extends Controller
 
         Exercises::updateStatus($data["exercise"]["id"], $_GET["status"]);
 
-        header("Location: /exercises.php");
+        header("Location: /exercises");
     }
 }
