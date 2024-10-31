@@ -26,7 +26,15 @@ ob_start();
                 </thead>
 
                 <tbody>
-
+                    <?php foreach ($exercises["building"] as $buildingExercise): ?>
+                        <tr>
+                            <td><?= $buildingExercise["title"] ?></td>
+                            <td>
+                                <a title="Manage fields" href="/exercises/<?= $buildingExercise["id"] ?>/fields"><i class="fa fa-edit"></i></a>
+                                <a href="/exercises/<?= $buildingExercise["id"]; ?>/delete" onclick="return confirm('Are you sure?');"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </section>
@@ -42,7 +50,15 @@ ob_start();
                 </thead>
 
                 <tbody>
-
+                    <?php foreach ($exercises["answering"] as $answeringExercise): ?>
+                        <tr>
+                            <td><?= $answeringExercise["title"] ?></td>
+                            <td>
+                                <a title="Show results" href="/exercises/<?= $answeringExercise["id"] ?>/results"><i class="fa fa-chart-bar"></i></a>
+                                <a title="Close" href="/exercises/<?= $answeringExercise["id"]; ?>?status=closed"><i class="fa fa-minus-circle"></i></a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </section>
@@ -58,7 +74,15 @@ ob_start();
                 </thead>
 
                 <tbody>
-
+                    <?php foreach ($exercises["closed"] as $closedExercise): ?>
+                        <tr>
+                            <td><?= $closedExercise["title"] ?></td>
+                            <td>
+                                <a title="Show results" href="/exercises/<?= $closedExercise["id"] ?>/results"><i class="fa fa-chart-bar"></i></a>
+                                <a href="/exercises/<?= $closedExercise["id"]; ?>/delete" onclick="return confirm('Are you sure?');"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </section>
