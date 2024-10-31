@@ -20,21 +20,15 @@ ob_start();
 
     <form action="/exercises/id/fulfillments" method="post">
 
-        <input type="hidden" name="fulfillment[answers_attributes][][field_id]" id="fulfillment_answers_attributes__field_id" />
-
         <div class="field">
             <label for="fulfillment_answers_attributes__value">Single line</label>
             <input type="text" name="fulfillment[answers_attributes][][value]" id="fulfillment_answers_attributes__value" />
         </div>
 
-        <input type="hidden" value="153" name="fulfillment[answers_attributes][][field_id]" id="fulfillment_answers_attributes__field_id" />
-
         <div class="field">
             <label for="fulfillment_answers_attributes__value">List Single lines</label>
             <textarea name="fulfillment[answers_attributes][][value]" id="fulfillment_answers_attributes__value"></textarea>
         </div>
-
-        <input type="hidden" value="154" name="fulfillment[answers_attributes][][field_id]" id="fulfillment_answers_attributes__field_id" />
 
         <div class="field">
             <label for="fulfillment_answers_attributes__value">Multi-line</label>
