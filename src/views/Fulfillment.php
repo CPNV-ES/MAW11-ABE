@@ -10,7 +10,7 @@ ob_start();
 <header class="heading answering">
     <section class="container">
         <a href="/"><img src="/img/logo.png" /></a>
-        <span class="exercise-label">Exercise: <span class="exercise-title"></span></span>
+        <span class="exercise-label">Exercise: <span class="exercise-title">Placeholder</span></span>
     </section>
 </header>
 
