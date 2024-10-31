@@ -39,4 +39,13 @@ class ExercisesController extends Controller
 
         header("Location: /exercises");
     }
+
+    public static function delete($parameters)
+    {
+        $data = parent::fetchModelDataByIds($parameters);
+
+        Exercises::deleteExerciseFromId($data["exercise"]["id"]);
+
+        header("Location: /exercises");
+    }
 }
