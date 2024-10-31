@@ -10,8 +10,10 @@ class FieldsController extends Controller
     public static function createField($parameters)
     {
         $fieldLabel = $_POST["field"]["label"];
-        $fieldType = FieldTypes::GetFieldTypeIdByName($_POST["field"]["value_kind"]);
+        $fieldType = $_POST["field"]["type"];
         $exerciseId = $parameters["exerciseId"];
+
+        error_log(print_r($_POST, true));
 
         Fields::addField($fieldLabel, $fieldType, $exerciseId)[0];
 

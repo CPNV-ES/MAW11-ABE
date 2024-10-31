@@ -6,7 +6,7 @@ class Fields extends Model
 {
     public static function addField($label, $fieldType, $exerciseId)
     {
-        parent::insert(["label", "field_types_id", "exercises_id"], ["label" => $label, "field_types_id" => $fieldType, "exercises_id" => $exerciseId]);
+        parent::insert(["label", "type", "exercises_id"], ["label" => $label, "type" => $fieldType, "exercises_id" => $exerciseId]);
     }
 
     public static function getFieldsFromExerciseId($exerciseid)
