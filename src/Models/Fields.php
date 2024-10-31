@@ -4,8 +4,20 @@ namespace App\Models;
 
 class Fields extends Model
 {
-    public static function addField($title, $field_types, $exercises_id)
+    public static function addField($label, $fieldType, $exerciseId)
     {
-        parent::insert(["title", "field_types", "exercises_id"], ["title" => $title, "field_types" => $field_types, "exercises_id" => $exercises_id]);
+        parent::insert(["label", "type", "exercises_id"], ["label" => $label, "type" => $fieldType, "exercises_id" => $exerciseId]);
+    }
+
+    public static function getFieldsFromExerciseId($exerciseid)
+    {
+        $fields = parent::findBy("exercises_id", $exerciseid);
+
+        return $fields;
+    }
+
+    public static function deleteFieldFromId($id)
+    {
+        parent::delete("id", $id);
     }
 }

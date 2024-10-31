@@ -22,8 +22,12 @@ class ExercisesController extends Controller
         include_once VIEW_DIR . "/TakeExercise.php";
     }
 
-    public static function updateStatus($parameters)
+    public static function updateExercise($parameters)
     {
-        error_log(print_r($parameters, true));
+        $data = parent::fetchModelDataByIds($parameters);
+
+        Exercises::updateStatus($data["exercise"]["id"], $_GET["status"]);
+
+        header("Location: /exercises");
     }
 }

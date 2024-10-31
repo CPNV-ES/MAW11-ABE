@@ -114,24 +114,6 @@ ul {
     margin-bottom: 2.5rem;
 }
 
-table {
-    display: table;
-    border-collapse: separate;
-    box-sizing: border-box;
-    text-indent: initial;
-    unicode-bidi: isolate;
-    line-height: normal;
-    font-weight: normal;
-    font-size: medium;
-    font-style: normal;
-    color: -internal-quirk-inherit;
-    text-align: start;
-    border-spacing: 2px;
-    border-color: gray;
-    white-space: normal;
-    font-variant: normal;
-}
-
 td:first-child,
 th:first-child {
     padding-left: 0;
@@ -235,4 +217,8 @@ select {
 div.field,
 div.actions {
     margin-bottom: 10px;
+}
+
+table.records td:last-child {
+    text-align: right;
 }

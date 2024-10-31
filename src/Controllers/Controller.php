@@ -3,25 +3,19 @@
 namespace App\Controllers;
 
 use App\Models\Exercises;
+use App\Models\Fields;
 
 class Controller
 {
-    protected array $variables;
-
-    public function __construct(array $variables = [])
-    {
-        $this->variables = $variables;
-    }
-
-    public function getVariables(): array
-    {
-        return $this->variables;
-    }
-
     public static function view($parameters)
     {
-        $idsArray = $parameters[1];
+        $data = self::fetchModelDataByIds($parameters[1]);
 
+        require_once VIEW_DIR . $parameters[0];
+    }
+
+    protected static function fetchModelDataByIds($idsArray)
+    {
         $data = [];
 
         if ($idsArray != []) {
@@ -29,9 +23,12 @@ class Controller
                 if (str_contains($key, "exercise")) {
                     $data["exercise"] = Exercises::findBy("id", $id)[0];
                 }
+                if (str_contains($key, "field")) {
+                    $data["field"] = Fields::findBy("id", $id)[0];
+                }
             }
         }
 
-        require_once VIEW_DIR . $parameters[0];
+        return $data;
     }
 }
