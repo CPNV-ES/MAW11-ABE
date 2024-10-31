@@ -15,19 +15,36 @@ ob_start();
 </header>
 
 <main class="container">
-    <div class="container dashboard">
-        <section class="row">
-            <div class="column">
-                <a class="button answering column" href="/exercises/answering">Take an exercise</a>
-            </div>
-            <div class="column">
-                <a class="button managing column" href="/exercises/new">Create an exercise</a>
-            </div>
-            <div class="column">
-                <a class="button results column" href="/exercises">Manage an exercise</a>
-            </div>
-        </section>
-    </div>
+    <h1>Your take</h1>
+    <p>If you'd like to come back later to finish, simply submit it with blanks</p>
+
+    <form action="/exercises/id/fulfillments" method="post">
+
+        <input type="hidden" name="fulfillment[answers_attributes][][field_id]" id="fulfillment_answers_attributes__field_id" />
+
+        <div class="field">
+            <label for="fulfillment_answers_attributes__value">Single line</label>
+            <input type="text" name="fulfillment[answers_attributes][][value]" id="fulfillment_answers_attributes__value" />
+        </div>
+
+        <input type="hidden" value="153" name="fulfillment[answers_attributes][][field_id]" id="fulfillment_answers_attributes__field_id" />
+
+        <div class="field">
+            <label for="fulfillment_answers_attributes__value">List Single lines</label>
+            <textarea name="fulfillment[answers_attributes][][value]" id="fulfillment_answers_attributes__value"></textarea>
+        </div>
+
+        <input type="hidden" value="154" name="fulfillment[answers_attributes][][field_id]" id="fulfillment_answers_attributes__field_id" />
+
+        <div class="field">
+            <label for="fulfillment_answers_attributes__value">Multi-line</label>
+            <textarea name="fulfillment[answers_attributes][][value]" id="fulfillment_answers_attributes__value"></textarea>
+        </div>
+
+        <div class="actions">
+            <input type="submit" value="Save" />
+        </div>
+    </form>
 </main>
 
 <?php
