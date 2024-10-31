@@ -15,4 +15,9 @@ class Fields extends Model
 
         return $fields;
     }
+
+    public static function deleteFieldFromId($id)
+    {
+        parent::delete("id", $id);
+    }
 }

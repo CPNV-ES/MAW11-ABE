@@ -59,6 +59,13 @@ class Model
         return static::getDatabaseInstance()->query($sql, $SQLParameters);
     }
 
+    protected static function delete($column, $value)
+    {
+        $tableName = static::tableName();
+        $sql = "DELETE FROM $tableName WHERE $column = :value";
+        return static::getDatabaseInstance()->query($sql, [':value' => $value]);
+    }
+
     protected static function tableName()
     {
         $class_name = strtolower(get_called_class());

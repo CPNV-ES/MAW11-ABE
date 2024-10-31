@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Exercises;
+use App\Models\Fields;
 
 class Controller
 {
@@ -21,6 +22,9 @@ class Controller
             foreach ($idsArray as $key => $id) {
                 if (str_contains($key, "exercise")) {
                     $data["exercise"] = Exercises::findBy("id", $id)[0];
+                }
+                if (str_contains($key, "field")) {
+                    $data["field"] = Fields::findBy("id", $id)[0];
                 }
             }
         }

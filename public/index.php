@@ -39,5 +39,6 @@ $router->addRoute(new Route('GET', '/exercises/{exerciseId}/fields', [FieldsCont
 $router->addRoute(new Route('GET', '/exercises/{exerciseId}', [ExercisesController::class, 'updateExercise']));
 $router->addRoute(new Route('POST', '/exercises', [ExercisesController::class, 'create']));
 $router->addRoute(new Route('POST', '/exercises/{exerciseId}/fields', [FieldsController::class, 'createField']));
+$router->addRoute(new Route('GET', '/exercises/{exerciseId}/fields/{fieldId}/delete', [FieldsController::class, 'delete']));
 
 $router->matchRoute();

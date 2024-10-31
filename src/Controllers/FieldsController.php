@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\Fields;
-use App\Models\FieldTypes;
 
 class FieldsController extends Controller
 {
@@ -29,8 +28,12 @@ class FieldsController extends Controller
         include_once VIEW_DIR . "/Fields.php";
     }
 
-    public static function updateStatus($parameters)
+    public static function delete($parameters)
     {
-        error_log(print_r($parameters, true));
+        $data = parent::fetchModelDataByIds($parameters);
+
+        Fields::deleteFieldFromId($data["field"]["id"]);
+
+        header("Location: /exercises/" . $data["exercise"]["id"] . "/fields/");
     }
 }
