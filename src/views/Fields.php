@@ -35,6 +35,10 @@ ob_start();
                         <tr>
                             <td><?= $field["label"] ?></td>
                             <td><?= $field["type"] ?></td>
+                            <td>
+                                <a title="Edit" href="/exercises/<?= $exerciseData["id"]; ?>/fields/<?= $field["id"]; ?>/edit"><i class="fa fa-edit"></i></a>
+                                <a data-confirm="Are you sure?" title="Destroy" href="/exercises/<?= $exerciseData["id"]; ?>/fields/<?= $field["id"]; ?>"><i class="fa fa-trash"></i></a>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
