@@ -10,7 +10,7 @@ ob_start();
 <header class="heading answering">
     <section class="container">
         <a href="/"><img src="/img/logo.png" /></a>
-        <span class="exercise-label">Exercise: <span class="exercise-title">Placeholder</span></span>
+        <span class="exercise-label">Exercise: <span class="exercise-title"><?= $exercise["title"] ?></span></span>
     </section>
 </header>
 
@@ -18,22 +18,18 @@ ob_start();
     <h1>Your take</h1>
     <p>If you'd like to come back later to finish, simply submit it with blanks</p>
 
-    <form action="/exercises/id/fulfillments" method="post">
+    <form action="/exercises/<?= $exercise["id"] ?>/fulfillments" method="post">
 
-        <div class="field">
-            <label for="fulfillment_answers_attributes__value">Single line</label>
-            <input type="text" name="fulfillment[answers_attributes][][value]" id="fulfillment_answers_attributes__value" />
-        </div>
-
-        <div class="field">
-            <label for="fulfillment_answers_attributes__value">List Single lines</label>
-            <textarea name="fulfillment[answers_attributes][][value]" id="fulfillment_answers_attributes__value"></textarea>
-        </div>
-
-        <div class="field">
-            <label for="fulfillment_answers_attributes__value">Multi-line</label>
-            <textarea name="fulfillment[answers_attributes][][value]" id="fulfillment_answers_attributes__value"></textarea>
-        </div>
+        <?php foreach ($fields as $field): ?>
+            <div class="field">
+                <label for="fulfillment_answers_attributes__value"><?= $field["label"] ?></label>
+                <?php if ($field["type"] === "single_line"): ?>
+                    <input type="text" name="fulfillment[answers_attributes][][value]" id="fulfillment_answers_attributes__value" />
+                <?php else: ?>
+                    <textarea name="fulfillment[answers_attributes][][value]" id="fulfillment_answers_attributes__value"></textarea>
+                <?php endif; ?>
+            </div>
+        <?php endforeach; ?>
 
         <div class="actions">
             <input type="submit" value="Save" />
