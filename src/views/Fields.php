@@ -31,6 +31,12 @@ ob_start();
                 </thead>
 
                 <tbody>
+                    <?php foreach ($fields as $field): ?>
+                        <tr>
+                            <td><?= $field["label"] ?></td>
+                            <td><?= $field["type"] ?></td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
 
