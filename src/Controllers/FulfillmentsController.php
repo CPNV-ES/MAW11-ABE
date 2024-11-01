@@ -22,11 +22,11 @@ class FulfillmentsController extends Controller
         }
 
         if ($exercise === null) {
-            include_once VIEW_DIR . "/404.php";
+            include_once ERROR_DIR . "/404.php";
             return;
         }
 
-        include_once VIEW_DIR . "/Fulfillment.php";
+        include_once PAGE_DIR . "/Fulfillment.php";
     }
 
     public static function createFulfillment($parameters)

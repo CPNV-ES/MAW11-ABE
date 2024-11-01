@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Core;
 
 use Exception;
 
@@ -80,6 +80,6 @@ class Router
 
         error_log('Route not found');
 
-        include_once VIEW_DIR . "/404.php";
+        include_once ERROR_DIR . "/404.php";
     }
 }

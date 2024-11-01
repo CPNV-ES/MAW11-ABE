@@ -6,9 +6,12 @@ define('BASE_DIR', dirname(__FILE__) . '/..');
 define('PUBLIC_DIR', dirname(__FILE__));
 define('IMG_DIR', PUBLIC_DIR . '/img');
 define('SOURCE_DIR', BASE_DIR . '/src');
+define('CONTROLLER_DIR', SOURCE_DIR . '/Controllers');
+define('CORE_DIR', SOURCE_DIR . '/Core');
 define('MODEL_DIR', SOURCE_DIR . '/Models');
 define('VIEW_DIR', SOURCE_DIR . '/Views');
-define('CONTROLLER_DIR', SOURCE_DIR . '/Controllers');
+define('ERROR_DIR', VIEW_DIR . '/Errors');
+define('PAGE_DIR', VIEW_DIR . '/Pages');
 
 
 require_once BASE_DIR . '/vendor/autoload.php';
@@ -16,8 +19,8 @@ require_once BASE_DIR . '/vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(BASE_DIR);
 $dotenv->load();
 
-use App\Route;
-use App\Router;
+use App\Core\Route;
+use App\Core\Router;
 use App\Controllers\Controller;
 use App\Controllers\FieldsController;
 use App\Controllers\ExercisesController;
@@ -30,7 +33,7 @@ if (!empty($_SERVER["QUERY_STRING"])) {
     $route = substr($route, 0, strlen($_SERVER["REQUEST_URI"]) - strlen($_SERVER["QUERY_STRING"]) - 1);
 }
 
-include_once SOURCE_DIR . '/Router.php';
+include_once CORE_DIR . '/Router.php';
 $router = new Router([$route, $method]);
 
 $router->addRoute(new Route('GET', '/', [Controller::class, '/Home.php']));

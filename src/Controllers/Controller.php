@@ -11,7 +11,7 @@ class Controller
     {
         $data = self::fetchModelDataByIds($parameters[1]);
 
-        require_once VIEW_DIR . $parameters[0];
+        include_once PAGE_DIR . $parameters[0];
     }
 
     protected static function fetchModelDataByIds($idsArray)
