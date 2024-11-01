@@ -1,12 +1,12 @@
 ```mermaid
 ---
-title: MAW11-ABE-NUI
+title: MAW11-ABE
 ---
 classDiagram
-    note "Project: MAW11-ABE-NUI\nTitle: Full MLD\nAuthor: Arthur Bottemanne\nVersion: 1.1v 09/25/2024"
+    note "Project: MAW11-ABE\nTitle: Full MLD\nAuthor: Arthur Bottemanne\nVersion: 1.2v 11/01/2024"
     exercises <|-- fields
-    field_types <|-- fields
     fields <|-- answers
+    exercises <|-- fulfillments
     class exercises{
         pk(id)
         id Int
@@ -18,13 +18,9 @@ classDiagram
         fk(field_types_id, exercises_id)
         id Int
         title Text
+        type Text
         field_types_id Int
         exercises_id Int
-    }
-    class field_types {
-        pk(id)
-        id Int
-        type Text
     }
     class answers {
         pk(id)
@@ -36,7 +32,9 @@ classDiagram
     }
     class fulfillments {
         pk(id)
+        fk(exercise_id)
         id Int
         fulfillment Date
+        exercise_id Int
     }
 ```
