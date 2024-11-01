@@ -30,6 +30,11 @@ ob_start();
                         <tr>
                             <td><?= $buildingExercise["title"] ?></td>
                             <td>
+
+                                <?php if ($buildingExercise["hasField"]): ?>
+                                    <a title="Be ready for answers" href="/exercises/<?= $buildingExercise["id"] ?>?status=answering"><i class="fa fa-comment"></i></a>
+                                <?php endif; ?>
+
                                 <a title="Manage fields" href="/exercises/<?= $buildingExercise["id"] ?>/fields"><i class="fa fa-edit"></i></a>
                                 <a href="/exercises/<?= $buildingExercise["id"]; ?>/delete" onclick="return confirm('Are you sure?');"><i class="fa fa-trash"></i></a>
                             </td>
