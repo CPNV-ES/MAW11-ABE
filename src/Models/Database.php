@@ -6,8 +6,6 @@ use PDOException;
 use Exception;
 use PDO;
 
-use App\Models\Model;
-
 class Database
 {
     private static $instance = null;
