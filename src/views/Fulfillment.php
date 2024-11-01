@@ -24,9 +24,11 @@ ob_start();
             <div class="field">
                 <label for="fulfillment_answers_attributes__value"><?= $field["label"] ?></label>
                 <?php if ($field["type"] === "single_line"): ?>
-                    <input type="text" name="fulfillment[answers_attributes][][value]" id="fulfillment_answers_attributes__value" />
+                    <input type="text" name="fulfillment[answers_attributes][][value]"
+                        id="fulfillment_answers_attributes__value" />
                 <?php else: ?>
-                    <textarea name="fulfillment[answers_attributes][][value]" id="fulfillment_answers_attributes__value"></textarea>
+                    <textarea name="fulfillment[answers_attributes][][value]"
+                        id="fulfillment_answers_attributes__value"></textarea>
                 <?php endif; ?>
             </div>
         <?php endforeach; ?>

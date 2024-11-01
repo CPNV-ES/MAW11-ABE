@@ -19,8 +19,9 @@ $dotenv->load();
 use App\Route;
 use App\Router;
 use App\Controllers\Controller;
-use App\Controllers\ExercisesController;
 use App\Controllers\FieldsController;
+use App\Controllers\ExercisesController;
+use App\Controllers\FulfillmentsController;
 
 $route = $_SERVER['REQUEST_URI'];
 $method = $_SERVER["REQUEST_METHOD"];
@@ -38,7 +39,7 @@ $router->addRoute(new Route('GET', '/exercises/new', [Controller::class, '/Creat
 $router->addRoute(new Route('GET', '/exercises/answering', [ExercisesController::class, 'ShowAnswering']));
 $router->addRoute(new Route('GET', '/exercises/{exerciseId}', [ExercisesController::class, 'updateExercise']));
 $router->addRoute(new Route('GET', '/exercises/{exerciseId}/fields', [FieldsController::class, 'viewExerciseFields']));
-$router->addRoute(new Route('GET', '/exercises/{exerciseId}/fulfillments/new', [Controller::class, '/Fulfillment.php']));
+$router->addRoute(new Route('GET', '/exercises/{exerciseId}/fulfillments/new', [FulfillmentsController::class, 'viewNewFulfillment']));
 
 $router->addRoute(new Route('POST', '/exercises', [ExercisesController::class, 'create']));
 $router->addRoute(new Route('POST', '/exercises/{exerciseId}/fields', [FieldsController::class, 'createField']));
