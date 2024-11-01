@@ -80,6 +80,6 @@ class Router
 
         error_log('Route not found');
 
-        include_once ERROR_DIR . "/404.php";
+        include_once ERROR_DIR . "/error404.php";
     }
 }
