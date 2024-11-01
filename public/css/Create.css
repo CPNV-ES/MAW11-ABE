@@ -1,0 +1,61 @@
+body {
+    margin: 0px;
+}
+
+header.managing {
+    background-color: #e0a458;
+}
+
+header.heading {
+    height: 5rem;
+    color: white;
+    display: block;
+    left: 0;
+    max-width: 100%;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+.managing {
+    border-color: #e0a458;
+}
+
+header.heading section {
+    display: flex;
+    height: 5rem;
+}
+
+a {
+    color: #9b4dca;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+header.heading img {
+    height: 100%;
+}
+
+img {
+    max-width: 100%;
+}
+
+img {
+    border-style: none;
+}
+
+header.heading .exercise-label {
+    margin: auto;
+    margin-left: 2rem;
+}
+
+main.container {
+    margin-top: 5rem;
+}
+
+div.field,
+div.actions {
+    margin-bottom: 10px;
+}
