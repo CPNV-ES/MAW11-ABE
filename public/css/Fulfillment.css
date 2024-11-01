@@ -1,48 +1,58 @@
+header.heading .exercise-title,
+header.heading .exercise-label a {
+    font-weight: bold;
+}
+
+header.heading .exercise-label {
+    margin: auto;
+    margin-left: 2rem;
+}
+
 header.answering {
-  background-color: #9b4dca;
+    background-color: #9b4dca;
 }
 
 header.heading {
-  height: 5rem;
-  color: white;
-  display: block;
-  left: 0;
-  max-width: 100%;
-  position: fixed;
-  right: 0;
-  top: 0;
-  width: 100%;
-  z-index: 1;
+    height: 5rem;
+    color: white;
+    display: block;
+    left: 0;
+    max-width: 100%;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1;
 }
 
 header.heading section {
-  display: flex;
-  height: 5rem;
+    display: flex;
+    height: 5rem;
 }
 
 .container {
-  margin: 0 auto;
-  max-width: 112rem;
-  padding: 0 2rem;
-  position: relative;
-  width: 100%;
+    margin: 0 auto;
+    max-width: 112rem;
+    padding: 0 2rem;
+    position: relative;
+    width: 100%;
 }
 
 .container img {
-  width: 50px;
-  height: 50px;
+    width: 50px;
+    height: 50px;
 }
 
 main.container {
-  margin-top: 5rem;
+    margin-top: 5rem;
 }
 
 main {
-  display: block;
+    display: block;
 }
 
 .ansering-list {
-  padding-top: 2rem;
+    padding-top: 2rem;
 }
 
 blockquote,
@@ -54,34 +64,34 @@ p,
 pre,
 table,
 ul {
-  margin-bottom: 2.5rem;
+    margin-bottom: 2.5rem;
 }
 
 ul {
-  list-style: circle inside;
+    list-style: circle inside;
 }
 
 dl,
 ol,
 ul {
-  list-style: none;
-  margin-top: 0;
-  padding-left: 0;
+    list-style: none;
+    margin-top: 0;
+    padding-left: 0;
 }
 
 @media (min-width: 40rem) {
-  .row {
-    flex-direction: row;
-    margin-left: -1rem;
-    width: calc(100% + 2rem);
-  }
+    .row {
+        flex-direction: row;
+        margin-left: -1rem;
+        width: calc(100% + 2rem);
+    }
 }
 
 .row {
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    width: 100%;
 }
 
 .button,
@@ -89,35 +99,35 @@ button,
 dd,
 dt,
 li {
-  margin-bottom: 1rem;
+    margin-bottom: 1rem;
 }
 
 @media (min-width: 40rem) {
-  .row .column {
-    margin-bottom: inherit;
-    padding: 0 1rem;
-  }
+    .row .column {
+        margin-bottom: inherit;
+        padding: 0 1rem;
+    }
 }
 
 .row .column {
-  display: block;
-  flex: 1 1 auto;
-  margin-left: 0;
-  max-width: 100%;
-  width: 100%;
+    display: block;
+    flex: 1 1 auto;
+    margin-left: 0;
+    max-width: 100%;
+    width: 100%;
 }
 
 .card {
-  background-color: #eee;
-  border-radius: 0.4rem;
-  text-align: center;
-  padding: 1rem;
+    background-color: #eee;
+    border-radius: 0.4rem;
+    text-align: center;
+    padding: 1rem;
 }
 
 .card .title {
-  margin: 1rem 0;
+    margin: 1rem 0;
 }
 
 .card a.button {
-  display: block;
+    display: block;
 }
