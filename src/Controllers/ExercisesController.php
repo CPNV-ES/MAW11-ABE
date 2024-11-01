@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Exercises;
+use App\Models\Fields;
 
 class ExercisesController extends Controller
 {
@@ -27,6 +28,10 @@ class ExercisesController extends Controller
         $exercises["building"] = Exercises::findAllByStatus("building");
         $exercises["answering"] = Exercises::findAllByStatus("answering");
         $exercises["closed"] = Exercises::findAllByStatus("closed");
+
+        foreach ($exercises["building"] as $key => $buildingExercise) {
+            $exercises["building"][$key]["hasField"] = !empty(Fields::getFieldsFromExerciseId($buildingExercise["id"]));
+        }
 
         include_once VIEW_DIR . "/Manage.php";
     }
