@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Models\Database;
 
+use Exception;
+
 class Model
 {
     public static $db;
@@ -19,14 +21,23 @@ class Model
     {
         $tableName = static::tableName();
         $sql = "SELECT * FROM $tableName";
-        return static::getDatabaseInstance()->query($sql);
+
+        try {
+            return static::getDatabaseInstance()->query($sql);
+        } catch (Exception $e) {
+            throw new Exception("Error caught: " . $e->getMessage());
+        }
     }
 
     public static function findBy($column, $value)
     {
         $tableName = static::tableName();
         $sql = "SELECT * FROM $tableName WHERE $column = :value";
-        return static::getDatabaseInstance()->query($sql, [':value' => $value]);
+        try {
+            return static::getDatabaseInstance()->query($sql, [':value' => $value]);
+        } catch (Exception $e) {
+            throw new Exception("Error caught: " . $e->getMessage());
+        }
     }
 
     protected static function insert($columnNames, $SQLParameters)
@@ -37,33 +48,40 @@ class Model
             return ':' . $item;
         }, $columnNames)) . ")";
 
-        static::getDatabaseInstance()->query($sql, $SQLParameters);
-
-        $results = static::getDatabaseInstance()->getLastInsertedRow($tableName);
-
-        error_log(print_r($results, true));
-
-        return $results;
+        try {
+            static::getDatabaseInstance()->query($sql, $SQLParameters);
+            $results = static::getDatabaseInstance()->getLastInsertedRow($tableName);
+            return $results;
+        } catch (Exception $e) {
+            throw new Exception("Error caught: " . $e->getMessage());
+        }
     }
 
     protected static function update($columnNames, $columnCondition, $SQLParameters)
     {
         $tableName = static::tableName();
 
-        // $columnName = :$columnName,
-
         $sql = "UPDATE $tableName SET " . join(',', array_map(function ($value) {
             return $value . " = :" . $value;
         }, $columnNames)) . " WHERE " . $columnCondition . " = :" . $columnCondition;
 
-        return static::getDatabaseInstance()->query($sql, $SQLParameters);
+        try {
+            return static::getDatabaseInstance()->query($sql, $SQLParameters);
+        } catch (Exception $e) {
+            throw new Exception("Error caught: " . $e->getMessage());
+        }
     }
 
     protected static function delete($column, $value)
     {
         $tableName = static::tableName();
         $sql = "DELETE FROM $tableName WHERE $column = :value";
-        return static::getDatabaseInstance()->query($sql, [':value' => $value]);
+
+        try {
+            return static::getDatabaseInstance()->query($sql, [':value' => $value]);
+        } catch (Exception $e) {
+            throw new Exception("Error caught: " . $e->getMessage());
+        }
     }
 
     protected static function tableName()

@@ -31,4 +31,9 @@ class Controller
 
         return $data;
     }
+
+    protected static function handleError($errorPage = '/404.php')
+    {
+        include_once ERROR_DIR . $errorPage;
+    }
 }
