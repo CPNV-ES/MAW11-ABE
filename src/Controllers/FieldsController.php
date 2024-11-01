@@ -19,18 +19,18 @@ class FieldsController extends Controller
         header("Location: /exercises/" . $exerciseId . "/fields");
     }
 
-    public static function viewExerciseFields($parameters)
+    public static function showExerciseFields($parameters)
     {
-        $data = parent::fetchModelDataByIds($parameters);
+        $data = parent::getModelDataByIds($parameters);
 
         $fields = Fields::getFieldsFromExerciseId($data["exercise"]["id"]);
 
         include_once PAGE_DIR . "/ManageExerciseFields.php";
     }
 
-    public static function delete($parameters)
+    public static function deleteField($parameters)
     {
-        $data = parent::fetchModelDataByIds($parameters);
+        $data = parent::getModelDataByIds($parameters);
 
         Fields::deleteFieldFromId($data["field"]["id"]);
 

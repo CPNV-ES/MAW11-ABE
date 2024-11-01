@@ -9,9 +9,9 @@ use App\Models\Fulfillments;
 
 class FulfillmentsController extends Controller
 {
-    public static function viewNewFulfillment($parameters)
+    public static function showAnswerExercise($parameters)
     {
-        $data = parent::fetchModelDataByIds($parameters);
+        $data = parent::getModelDataByIds($parameters);
 
         $exercise = Exercises::findBy("id", $data["exercise"]["id"])[0] ?? null;
 
@@ -31,7 +31,7 @@ class FulfillmentsController extends Controller
 
     public static function createFulfillment($parameters)
     {
-        $exerciseId = parent::fetchModelDataByIds($parameters)["exercise"]["id"];
+        $exerciseId = parent::getModelDataByIds($parameters)["exercise"]["id"];
 
         $fulfillment = Fulfillments::createFulfillment($exerciseId);
         $fulfillmentId = $fulfillment[0]["id"] ?? null;

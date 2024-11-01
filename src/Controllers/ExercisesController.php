@@ -7,7 +7,7 @@ use App\Models\Fields;
 
 class ExercisesController extends Controller
 {
-    public static function create()
+    public static function createExercise()
     {
         $name = $_POST["title"];
 
@@ -16,14 +16,14 @@ class ExercisesController extends Controller
         header("Location: /exercises/" . $exerciseData['id'] . "/fields");
     }
 
-    public static function showAnswering()
+    public static function showAnsweringExercises()
     {
         $exercises = Exercises::findAllByStatus("answering");
 
         include_once PAGE_DIR . "/TakeExercises.php";
     }
 
-    public static function manageExercise()
+    public static function showManageExercises()
     {
         $exercises["building"] = Exercises::findAllByStatus("building");
         $exercises["answering"] = Exercises::findAllByStatus("answering");
@@ -36,18 +36,18 @@ class ExercisesController extends Controller
         include_once PAGE_DIR . "/ManageExercises.php";
     }
 
-    public static function updateExercise($parameters)
+    public static function updateExerciseStatus($parameters)
     {
-        $data = parent::fetchModelDataByIds($parameters);
+        $data = parent::getModelDataByIds($parameters);
 
         Exercises::updateStatus($data["exercise"]["id"], $_GET["status"]);
 
         header("Location: /exercises");
     }
 
-    public static function delete($parameters)
+    public static function deleteExercise($parameters)
     {
-        $data = parent::fetchModelDataByIds($parameters);
+        $data = parent::getModelDataByIds($parameters);
 
         Exercises::deleteExerciseFromId($data["exercise"]["id"]);
 

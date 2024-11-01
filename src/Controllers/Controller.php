@@ -7,14 +7,14 @@ use App\Models\Fields;
 
 class Controller
 {
-    public static function view($parameters)
+    public static function show($parameters)
     {
-        $data = self::fetchModelDataByIds($parameters[1]);
+        $data = self::getModelDataByIds($parameters[1]);
 
         include_once PAGE_DIR . $parameters[0];
     }
 
-    protected static function fetchModelDataByIds($idsArray)
+    protected static function getModelDataByIds($idsArray)
     {
         $data = [];
 
