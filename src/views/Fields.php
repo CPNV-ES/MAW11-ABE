@@ -13,7 +13,7 @@ ob_start();
 <header class="heading managing">
     <section class="container">
         <a href="/"><img src="/img/logo.png" /></a>
-        <span class="exercise-label">Exercise: <a href="/exercises/<?= $exerciseData["id"]; ?>/fields"><?= $exerciseData["title"] ?></a></span>
+        <span class="exercise-label">Exercise: <a href="/exercises/<?= $exerciseData["id"]; ?>/fields"><?= htmlspecialchars($exerciseData["title"], ENT_QUOTES, 'UTF-8') ?></a></span>
     </section>
 </header>
 
@@ -33,7 +33,7 @@ ob_start();
                 <tbody>
                     <?php foreach ($fields as $field): ?>
                         <tr>
-                            <td><?= $field["label"] ?></td>
+                            <td><?= htmlspecialchars($field["label"], ENT_QUOTES, 'UTF-8') ?></td>
                             <td><?= $field["type"] ?></td>
                             <td>
                                 <a title="Edit" href="/exercises/<?= $exerciseData["id"]; ?>/fields/<?= $field["id"]; ?>/edit"><i class="fa fa-edit"></i></a>
