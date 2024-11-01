@@ -11,11 +11,11 @@ class ExercisesController extends Controller
     public static function createExercise()
     {
         try {
-            $name = $_POST["title"];
+            $exerciseTitle = $_POST["title"];
 
-            $exerciseData = Exercises::addExercise($name)[0];
+            $exercise = Exercises::addExercise($exerciseTitle)[0];
 
-            header("Location: /exercises/" . $exerciseData['id'] . "/fields");
+            header("Location: /exercises/" . $exercise['id'] . "/fields");
         } catch (Exception $e) {
             self::handleError();
         }

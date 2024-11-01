@@ -4,7 +4,7 @@
 $title = "ExerciseLooper";
 $style = '<link rel="stylesheet" href="/css/Fields.css">';
 
-$exerciseData = $data["exercise"];
+$exercise = $data["exercise"];
 
 ob_start();
 ?>
@@ -13,7 +13,8 @@ ob_start();
 <header class="heading managing">
     <section class="container">
         <a href="/"><img src="/img/logo.png" /></a>
-        <span class="exercise-label">Exercise: <a href="/exercises/<?= $exerciseData["id"]; ?>/fields"><?= htmlspecialchars($exerciseData["title"], ENT_QUOTES, 'UTF-8') ?></a></span>
+        <span class="exercise-label">Exercise: <a
+                href="/exercises/<?= $exercise["id"]; ?>/fields"><?= htmlspecialchars($exercise["title"], ENT_QUOTES, 'UTF-8') ?></a></span>
     </section>
 </header>
 
@@ -36,20 +37,25 @@ ob_start();
                             <td><?= htmlspecialchars($field["label"], ENT_QUOTES, 'UTF-8') ?></td>
                             <td><?= $field["type"] ?></td>
                             <td>
-                                <a title="Edit" href="/exercises/<?= $exerciseData["id"]; ?>/fields/<?= $field["id"]; ?>/edit"><i class="fa fa-edit"></i></a>
-                                <a href="/exercises/<?= $exerciseData["id"]; ?>/fields/<?= $field["id"]; ?>/delete" onclick="return confirm('Are you sure?');"><i class="fa fa-trash"></i></a>
+                                <a title="Edit"
+                                    href="/exercises/<?= $exercise["id"]; ?>/fields/<?= $field["id"]; ?>/edit"><i
+                                        class="fa fa-edit"></i></a>
+                                <a href="/exercises/<?= $exercise["id"]; ?>/fields/<?= $field["id"]; ?>/delete"
+                                    onclick="return confirm('Are you sure?');"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
 
-            <a onclick="return confirm('Are you sure? You won\'t be able to further edit this exercise')" class="button" href="/exercises/<?= $exerciseData["id"]; ?>?status=answering"><i class="fa fa-comment"></i> Complete and be ready for answers</a>
+            <a onclick="return confirm('Are you sure? You won\'t be able to further edit this exercise')" class="button"
+                href="/exercises/<?= $exercise["id"]; ?>?status=answering"><i class="fa fa-comment"></i> Complete and be
+                ready for answers</a>
 
         </section>
         <section class="column">
             <h1>New Field</h1>
-            <form action="/exercises/<?= $exerciseData["id"]; ?>/fields" accept-charset="UTF-8" method="post">
+            <form action="/exercises/<?= $exercise["id"]; ?>/fields" accept-charset="UTF-8" method="post">
                 <div class="field">
                     <label for="field_label">Label</label>
                     <input type="text" name="field[label]" id="field_label" />
