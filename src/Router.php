@@ -77,6 +77,9 @@ class Router
                 }
             }
         }
-        throw new Exception('Route not found');
+
+        error_log('Route not found');
+
+        include_once VIEW_DIR . "/404.php";
     }
 }
