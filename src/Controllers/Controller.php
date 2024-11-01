@@ -32,7 +32,7 @@ class Controller
         return $data;
     }
 
-    protected static function handleError($errorPage = '/404.php')
+    protected static function handleError($errorPage = '/error500.php')
     {
         include_once ERROR_DIR . $errorPage;
     }

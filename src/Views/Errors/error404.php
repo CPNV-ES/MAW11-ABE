@@ -2,7 +2,7 @@
 
 //initialize page variables
 $title = "404 error";
-$style = '<link rel="stylesheet" href="/css/404.css">';
+$style = '<link rel="stylesheet" href="/css/error.css">';
 
 ob_start();
 ?>
