@@ -22,13 +22,13 @@ ob_start();
 
         <?php foreach ($fields as $field): ?>
             <div class="field">
-                <label for="fulfillment_answers_attributes__value"><?= $field["label"] ?></label>
+                <label for="fulfillment_answers_<?= $field["id"] ?>_value"><?= $field["label"] ?></label>
                 <?php if ($field["type"] === "single_line"): ?>
-                    <input type="text" name="fulfillment[answers_attributes][][value]"
-                        id="fulfillment_answers_attributes__value" />
+                    <input type="text" name="fulfillment[answers][<?= $field["id"] ?>][value]"
+                        id="fulfillment_answers_id_value" />
                 <?php else: ?>
-                    <textarea name="fulfillment[answers_attributes][][value]"
-                        id="fulfillment_answers_attributes__value"></textarea>
+                    <textarea name="fulfillment[answers][<?= $field["id"] ?>][value]"
+                        id="fulfillment_answers_<?= $field["id"] ?>_value"></textarea>
                 <?php endif; ?>
             </div>
         <?php endforeach; ?>
