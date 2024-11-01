@@ -25,7 +25,7 @@ class FieldsController extends Controller
 
         $fields = Fields::getFieldsFromExerciseId($data["exercise"]["id"]);
 
-        include_once PAGE_DIR . "/Fields.php";
+        include_once PAGE_DIR . "/ManageExerciseFields.php";
     }
 
     public static function delete($parameters)

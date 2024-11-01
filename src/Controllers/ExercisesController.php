@@ -20,7 +20,7 @@ class ExercisesController extends Controller
     {
         $exercises = Exercises::findAllByStatus("answering");
 
-        include_once PAGE_DIR . "/TakeExercise.php";
+        include_once PAGE_DIR . "/TakeExercises.php";
     }
 
     public static function manageExercise()
@@ -33,7 +33,7 @@ class ExercisesController extends Controller
             $exercises["building"][$key]["hasField"] = !empty(Fields::getFieldsFromExerciseId($buildingExercise["id"]));
         }
 
-        include_once PAGE_DIR . "/Manage.php";
+        include_once PAGE_DIR . "/ManageExercises.php";
     }
 
     public static function updateExercise($parameters)
