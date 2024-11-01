@@ -29,10 +29,6 @@ class ExercisesController extends Controller
         $exercises["answering"] = Exercises::findAllByStatus("answering");
         $exercises["closed"] = Exercises::findAllByStatus("closed");
 
-        foreach ($exercises["building"] as $key => $buildingExercise) {
-            $exercises["building"][$key]["hasField"] = !empty(Fields::getFieldsFromExerciseId($buildingExercise["id"]));
-        }
-
         include_once PAGE_DIR . "/ManageExercises.php";
     }
 

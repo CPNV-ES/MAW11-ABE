@@ -15,11 +15,7 @@ class FulfillmentsController extends Controller
 
         $exercise = Exercises::findBy("id", $data["exercise"]["id"])[0] ?? null;
 
-        $fields = Fields::findBy("exercises_id", $data["exercise"]["id"]);
-
-        foreach ($fields as $key => $field) {
-            $fields[$key]["label"] = $field["label"] ?: "Value";
-        }
+        $fields = Fields::getFields($data["exercise"]["id"]);
 
         if ($exercise === null) {
             include_once ERROR_DIR . "/404.php";

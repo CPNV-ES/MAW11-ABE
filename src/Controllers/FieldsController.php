@@ -12,8 +12,6 @@ class FieldsController extends Controller
         $fieldType = $_POST["field"]["type"];
         $exerciseId = $parameters["exerciseId"];
 
-        error_log(print_r($_POST, true));
-
         Fields::addField($fieldLabel, $fieldType, $exerciseId)[0];
 
         header("Location: /exercises/" . $exerciseId . "/fields");
