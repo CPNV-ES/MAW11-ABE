@@ -6,8 +6,6 @@ use PDOException;
 use Exception;
 use PDO;
 
-use App\Models\Model;
-
 class Database
 {
     private static $instance = null;
@@ -77,8 +75,13 @@ class Database
     public function getLastInsertedRow($tableName)
     {
         $sql = "SELECT * FROM $tableName WHERE id = :id";
-        $lastInsertedId = $this->pdo->lastInsertId();
 
-        return $this->query($sql, ["id" => $lastInsertedId]);
+        try {
+            $lastInsertedId = $this->pdo->lastInsertId();
+
+            return $this->query($sql, ["id" => $lastInsertedId]);
+        } catch (PDOException $e) {
+            throw new Exception("Query failed: " . $e->getMessage(), 500);
+        }
     }
 }

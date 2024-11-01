@@ -28,7 +28,7 @@ ob_start();
                 <tbody>
                     <?php foreach ($exercises["building"] as $buildingExercise): ?>
                         <tr>
-                            <td><?= $buildingExercise["title"] ?></td>
+                            <td><?= htmlspecialchars($buildingExercise["title"], ENT_QUOTES, 'UTF-8') ?></td>
                             <td>
 
                                 <?php if ($buildingExercise["hasField"]): ?>
@@ -57,7 +57,7 @@ ob_start();
                 <tbody>
                     <?php foreach ($exercises["answering"] as $answeringExercise): ?>
                         <tr>
-                            <td><?= $answeringExercise["title"] ?></td>
+                            <td><?= htmlspecialchars($answeringExercise["title"], ENT_QUOTES, 'UTF-8') ?></td>
                             <td>
                                 <a title="Show results" href="/exercises/<?= $answeringExercise["id"] ?>/results"><i class="fa fa-chart-bar"></i></a>
                                 <a title="Close" href="/exercises/<?= $answeringExercise["id"]; ?>?status=closed"><i class="fa fa-minus-circle"></i></a>
@@ -81,7 +81,7 @@ ob_start();
                 <tbody>
                     <?php foreach ($exercises["closed"] as $closedExercise): ?>
                         <tr>
-                            <td><?= $closedExercise["title"] ?></td>
+                            <td><?= htmlspecialchars($closedExercise["title"], ENT_QUOTES, 'UTF-8') ?></td>
                             <td>
                                 <a title="Show results" href="/exercises/<?= $closedExercise["id"] ?>/results"><i class="fa fa-chart-bar"></i></a>
                                 <a href="/exercises/<?= $closedExercise["id"]; ?>/delete" onclick="return confirm('Are you sure?');"><i class="fa fa-trash"></i></a>

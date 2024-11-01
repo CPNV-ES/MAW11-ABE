@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Core;
 
 use App\Controllers\Controller;
 
@@ -22,8 +22,8 @@ class Handler
             $controllerInstance = new $this->controller;
 
             if ($this->controller == Controller::class) {
-                if (file_exists(VIEW_DIR . $this->function)) {
-                    call_user_func([$this->controller, "view"], [$this->function, $args]);
+                if (file_exists(PAGE_DIR . $this->function)) {
+                    call_user_func([$this->controller, "show"], [$this->function, $args]);
                     return;
                 }
             }

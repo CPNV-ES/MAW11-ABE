@@ -10,7 +10,7 @@ ob_start();
 <header class="heading answering">
     <section class="container">
         <a href="/"><img src="/img/logo.png" /></a>
-        <span class="exercise-label">Exercise: <span class="exercise-title"><?= $exercise["title"] ?></span></span>
+        <span class="exercise-label">Exercise: <span class="exercise-title"><?= htmlspecialchars($exercise["title"], ENT_QUOTES, 'UTF-8') ?></span></span>
     </section>
 </header>
 
@@ -22,7 +22,7 @@ ob_start();
 
         <?php foreach ($fields as $field): ?>
             <div class="field">
-                <label for="fulfillment_answers_<?= $field["id"] ?>_value"><?= $field["label"] ?></label>
+                <label for="fulfillment_answers_<?= $field["id"] ?>_value"><?= htmlspecialchars($field["label"], ENT_QUOTES, 'UTF-8') ?></label>
                 <?php if ($field["type"] === "single_line"): ?>
                     <input type="text" name="fulfillment[answers][<?= $field["id"] ?>][value]"
                         id="fulfillment_answers_id_value" />

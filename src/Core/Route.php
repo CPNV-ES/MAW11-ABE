@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Core;
 
 class Route
 {
@@ -13,11 +13,6 @@ class Route
         $this->method = strtoupper($method);
         $this->path = rtrim($path, '/');
         $this->handler = $handler;
-    }
-
-    public function getMethod()
-    {
-        return $this->method;
     }
 
     public function getPath()

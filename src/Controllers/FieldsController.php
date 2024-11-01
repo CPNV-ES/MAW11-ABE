@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Models\Fields;
 
+use Exception;
+
 class FieldsController extends Controller
 {
     public static function createField($parameters)
@@ -12,28 +14,38 @@ class FieldsController extends Controller
         $fieldType = $_POST["field"]["type"];
         $exerciseId = $parameters["exerciseId"];
 
-        error_log(print_r($_POST, true));
+        try {
+            Fields::addField($fieldLabel, $fieldType, $exerciseId)[0];
 
-        Fields::addField($fieldLabel, $fieldType, $exerciseId)[0];
-
-        header("Location: /exercises/" . $exerciseId . "/fields");
+            header("Location: /exercises/" . $exerciseId . "/fields");
+        } catch (Exception $e) {
+            self::handleError();
+        }
     }
 
-    public static function viewExerciseFields($parameters)
+    public static function showExerciseFields($parameters)
     {
-        $data = parent::fetchModelDataByIds($parameters);
+        try {
+            $data = parent::getModelDataByIds($parameters);
 
-        $fields = Fields::getFieldsFromExerciseId($data["exercise"]["id"]);
+            $fields = Fields::getFieldsFromExerciseId($data["exercise"]["id"]);
 
-        include_once VIEW_DIR . "/Fields.php";
+            include_once PAGE_DIR . "/ManageExerciseFields.php";
+        } catch (Exception $e) {
+            self::handleError();
+        }
     }
 
-    public static function delete($parameters)
+    public static function deleteField($parameters)
     {
-        $data = parent::fetchModelDataByIds($parameters);
+        try {
+            $data = parent::getModelDataByIds($parameters);
 
-        Fields::deleteFieldFromId($data["field"]["id"]);
+            Fields::deleteFieldFromId($data["field"]["id"]);
 
-        header("Location: /exercises/" . $data["exercise"]["id"] . "/fields/");
+            header("Location: /exercises/" . $data["exercise"]["id"] . "/fields/");
+        } catch (Exception $e) {
+            self::handleError();
+        }
     }
 }

@@ -16,6 +16,17 @@ class Fields extends Model
         return $fields;
     }
 
+    public static function getFields($id)
+    {
+        $fields = parent::findBy("exercises_id", $id);
+
+        foreach ($fields as $key => $field) {
+            $fields[$key]["label"] = $field["label"] ?: "Value";
+        }
+
+        return $fields;
+    }
+
     public static function deleteFieldFromId($id)
     {
         parent::delete("id", $id);

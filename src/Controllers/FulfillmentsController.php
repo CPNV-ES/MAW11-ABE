@@ -7,39 +7,45 @@ use App\Models\Fields;
 use App\Models\Exercises;
 use App\Models\Fulfillments;
 
+use Exception;
+
 class FulfillmentsController extends Controller
 {
-    public static function viewNewFulfillment($parameters)
+    public static function showAnswerExercise($parameters)
     {
-        $data = parent::fetchModelDataByIds($parameters);
+        try {
+            $data = parent::getModelDataByIds($parameters);
 
-        $exercise = Exercises::findBy("id", $data["exercise"]["id"])[0] ?? null;
+            $exercise = Exercises::findBy("id", $data["exercise"]["id"])[0];
 
-        $fields = Fields::findBy("exercises_id", $data["exercise"]["id"]);
+            $fields = Fields::getFields($data["exercise"]["id"]);
 
-        foreach ($fields as $key => $field) {
-            $fields[$key]["label"] = $field["label"] ?: "Value";
+            include_once PAGE_DIR . "/AnswerExercise.php";
+        } catch (Exception $e) {
+            self::handleError();
         }
-
-        if ($exercise === null) {
-            include_once VIEW_DIR . "/404.php";
-            return;
-        }
-
-        include_once VIEW_DIR . "/Fulfillment.php";
     }
 
     public static function createFulfillment($parameters)
     {
-        $exerciseId = parent::fetchModelDataByIds($parameters)["exercise"]["id"];
+        $exerciseId = parent::getModelDataByIds($parameters)["exercise"]["id"];
 
-        $fulfillment = Fulfillments::createFulfillment($exerciseId);
-        $fulfillmentId = $fulfillment[0]["id"] ?? null;
+        try {
 
-        foreach ($_POST["fulfillment"]["answers"] as $key => $answer) {
-            Answers::addAnswer($key, $fulfillmentId, $answer["value"]);
+            $fulfillment = Fulfillments::createFulfillment($exerciseId);
+            $fulfillmentId = $fulfillment[0]["id"] ?? null;
+
+            if ($fulfillmentId === null) {
+                throw new Exception("Failed to create fulfillment.");
+            }
+
+            foreach ($_POST["fulfillment"]["answers"] as $key => $answer) {
+                Answers::addAnswer($key, $fulfillmentId, $answer["value"]);
+            }
+
+            header("Location: /exercises/" . $exerciseId . "/fulfillments/" . $fulfillmentId . "/edit");
+        } catch (Exception $e) {
+            self::handleError();
         }
-
-        header("Location: /exercises/" . $exerciseId . "/fulfillments/" . $fulfillmentId . "/edit");
     }
 }

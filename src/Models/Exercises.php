@@ -4,19 +4,29 @@ namespace App\Models;
 
 class Exercises extends Model
 {
-    public static function addExercise($title, $exercise_status = "building")
+    public static function addExercise($title, $exerciseStatus = "building")
     {
-        return parent::insert(["title", "exercise_status"], ["title" => $title, "exercise_status" => $exercise_status]);
+        $exercise = parent::insert(["title", "exercise_status"], ["title" => $title, "exercise_status" => $exerciseStatus]);
+
+        return $exercise;
     }
 
     public static function findAllByStatus($status)
     {
-        return parent::findBy("exercise_status", $status);
+        $exercises = parent::findBy("exercise_status", $status);
+
+        if ($status === "building") {
+            foreach ($exercises as $key => $buildingExercise) {
+                $exercises[$key]["hasField"] = !empty(Fields::getFieldsFromExerciseId($buildingExercise["id"]));
+            }
+        }
+
+        return $exercises;
     }
 
-    public static function updateStatus($id, $exercise_status)
+    public static function updateStatus($id, $exerciseStatus)
     {
-        parent::update(["exercise_status"], "id", ["exercise_status" => $exercise_status, "id" => $id]);
+        parent::update(["exercise_status"], "id", ["exercise_status" => $exerciseStatus, "id" => $id]);
     }
 
     public static function deleteExerciseFromId($id)

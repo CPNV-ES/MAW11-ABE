@@ -3,54 +3,71 @@
 namespace App\Controllers;
 
 use App\Models\Exercises;
-use App\Models\Fields;
+
+use Exception;
 
 class ExercisesController extends Controller
 {
-    public static function create()
+    public static function createExercise()
     {
-        $name = $_POST["title"];
+        try {
+            $exerciseTitle = $_POST["title"];
 
-        $exerciseData = Exercises::addExercise($name)[0];
+            $exercise = Exercises::addExercise($exerciseTitle)[0];
 
-        header("Location: /exercises/" . $exerciseData['id'] . "/fields");
-    }
-
-    public static function showAnswering()
-    {
-        $exercises = Exercises::findAllByStatus("answering");
-
-        include_once VIEW_DIR . "/TakeExercise.php";
-    }
-
-    public static function manageExercise()
-    {
-        $exercises["building"] = Exercises::findAllByStatus("building");
-        $exercises["answering"] = Exercises::findAllByStatus("answering");
-        $exercises["closed"] = Exercises::findAllByStatus("closed");
-
-        foreach ($exercises["building"] as $key => $buildingExercise) {
-            $exercises["building"][$key]["hasField"] = !empty(Fields::getFieldsFromExerciseId($buildingExercise["id"]));
+            header("Location: /exercises/" . $exercise['id'] . "/fields");
+        } catch (Exception $e) {
+            self::handleError();
         }
-
-        include_once VIEW_DIR . "/Manage.php";
     }
 
-    public static function updateExercise($parameters)
+    public static function showAnsweringExercises()
     {
-        $data = parent::fetchModelDataByIds($parameters);
+        try {
+            $exercises = Exercises::findAllByStatus("answering");
 
-        Exercises::updateStatus($data["exercise"]["id"], $_GET["status"]);
-
-        header("Location: /exercises");
+            include_once PAGE_DIR . "/TakeExercises.php";
+        } catch (Exception $e) {
+            self::handleError();
+        }
     }
 
-    public static function delete($parameters)
+    public static function showManageExercises()
     {
-        $data = parent::fetchModelDataByIds($parameters);
+        try {
+            $exercises["building"] = Exercises::findAllByStatus("building");
+            $exercises["answering"] = Exercises::findAllByStatus("answering");
+            $exercises["closed"] = Exercises::findAllByStatus("closed");
 
-        Exercises::deleteExerciseFromId($data["exercise"]["id"]);
+            include_once PAGE_DIR . "/ManageExercises.php";
+        } catch (Exception $e) {
+            self::handleError();
+        }
+    }
 
-        header("Location: /exercises");
+    public static function updateExerciseStatus($parameters)
+    {
+        try {
+            $data = parent::getModelDataByIds($parameters);
+
+            Exercises::updateStatus($data["exercise"]["id"], $_GET["status"]);
+
+            header("Location: /exercises");
+        } catch (Exception $e) {
+            self::handleError();
+        }
+    }
+
+    public static function deleteExercise($parameters)
+    {
+        try {
+            $data = parent::getModelDataByIds($parameters);
+
+            Exercises::deleteExerciseFromId($data["exercise"]["id"]);
+
+            header("Location: /exercises");
+        } catch (Exception $e) {
+            self::handleError();
+        }
     }
 }

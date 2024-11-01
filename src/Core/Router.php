@@ -1,8 +1,6 @@
 <?php
 
-namespace App;
-
-use Exception;
+namespace App\Core;
 
 class Router
 {
@@ -77,6 +75,9 @@ class Router
                 }
             }
         }
-        throw new Exception('Route not found');
+
+        error_log('Route not found');
+
+        include_once ERROR_DIR . "/error404.php";
     }
 }
