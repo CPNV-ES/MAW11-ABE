@@ -1,0 +1,53 @@
+body {
+    margin: 0px;
+}
+
+header {
+    background-color: #9b4dca;
+}
+
+header.dashboard .container {
+    text-align: center;
+    font-size: 3rem;
+    color: white;
+    padding: 2rem;
+}
+
+p {
+    margin-top: 0;
+}
+
+blockquote,
+dl,
+figure,
+form,
+ol,
+p,
+pre,
+table,
+ul {
+    margin-bottom: 2.5rem;
+}
+
+header.dashboard .container h1 {
+    letter-spacing: 1.1rem;
+}
+
+h1 {
+    font-size: 4.6rem;
+    line-height: 1.2;
+}
+
+div.dashboard {
+    margin-top: 2rem;
+}
+
+.managing {
+    border-color: #e0a458;
+    background-color: #e0a458;
+}
+
+.results {
+    border-color: #419d78;
+    background-color: #419d78;
+}
