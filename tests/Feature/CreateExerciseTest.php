@@ -5,6 +5,7 @@ define('BASE_DIR', dirname(__FILE__) . '/../..');
 require_once BASE_DIR . '/vendor/autoload.php';
 
 use App\Models\Database;
+use App\Models\Exercises;
 use App\Controllers\ExercisesController;
 use PHPUnit\Framework\TestCase;
 
@@ -15,6 +16,7 @@ $dotenv->load();
 final class CreateExerciseTest extends TestCase
 {
     private $db;
+    private $controller;
 
     protected function setUp(): void
     {
@@ -30,22 +32,16 @@ final class CreateExerciseTest extends TestCase
         $this->db->query("TRUNCATE TABLE fields");
         $this->db->query("TRUNCATE TABLE exercises");
         $this->db->query("SET FOREIGN_KEY_CHECKS=1");
+
+        $this->controller = new ExercisesController();
     }
 
     /**
      * @runInSeparateProcess
      */
-    public function testCreateExercise(): void
+    public function testCreateExerciseShouldAppearInDb(): void
     {
-        $exerciseData = [
-            'title' => 'New Test Exercise',
-            'exercise_status' => 'building'
-        ];
-
-        $_POST = $exerciseData; // controller->create(); will capture it
-
-        $controller = new ExercisesController();
-        $controller->createExercise();
+        $exerciseData = $this->createExercise();
 
         $result = $this->db->query("SELECT * FROM exercises WHERE title = :title", [':title' => $exerciseData['title']]);
         $result = $result[0];
@@ -55,6 +51,26 @@ final class CreateExerciseTest extends TestCase
         $this->assertEquals($exerciseData['exercise_status'], $result['exercise_status']);
     }
 
+    /**
+     * @runInSeparateProcess
+     */
+    public function testCreateExerciseShouldAppearInManageAnExercise(): void
+    {
+        $exerciseData = $this->createExercise();
+
+        $exercises["building"] = Exercises::findAllByStatus("building");
+
+        $found = false;
+        foreach ($exercises["building"] as $exercise) {
+            if ($exercise['title'] === $exerciseData['title'] && $exercise['exercise_status'] === $exerciseData['exercise_status']) {
+                $found = true;
+                break;
+            }
+        }
+
+        $this->assertTrue($found, "The created exercise should appear in the 'building' exercises array.");
+    }
+
     protected function tearDown(): void
     {
         // Clear the exercises table again after each test
@@ -62,5 +78,19 @@ final class CreateExerciseTest extends TestCase
         $this->db->query("TRUNCATE TABLE fields");
         $this->db->query("TRUNCATE TABLE exercises");
         $this->db->query("SET FOREIGN_KEY_CHECKS=1");
+    }
+
+    private function createExercise()
+    {
+        $exerciseData = [
+            'title' => 'New Test Exercise',
+            'exercise_status' => 'building'
+        ];
+
+        $_POST = $exerciseData; // controller->create(); will capture it
+
+        $this->controller->createExercise();
+
+        return $exerciseData;
     }
 }
