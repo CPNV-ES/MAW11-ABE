@@ -5,6 +5,10 @@ $title = "ExerciseLooper";
 $style = '<link rel="stylesheet" href="/css/Create.css">';
 ob_start();
 
+$exercise = $data["exercise"];
+
+$field = $data["field"];
+
 ?>
 
 
@@ -19,19 +23,19 @@ ob_start();
 <main class="container">
     <h1>Editing Field</h1>
 
-    <form action="/exercises" accept-charset="UTF-8" method="post">
+    <form action="/exercises/<?= $exercise["id"] ?>/fields/<?= $field["id"] ?>" accept-charset="UTF-8" method="post">
 
         <div class="field">
             <label for="field_label">Label</label>
-            <input type="text" name="field[label]" id="field_label" />
+            <input type="text" value="<?= $field["label"] ?>" name="field[label]" id="field_label" />
         </div>
 
         <div class="field">
             <label for="field_value_kind">Value kind</label>
             <select name="field[type]" id="field_value_kind">
-                <option selected="selected" value="single_line">Single line text</option>
-                <option value="single_line_list">List of single lines</option>
-                <option value="multi_line">Multi-line text</option>
+                <option <?= $field["type"] === "single_line" ? 'selected' : '' ?> value="single_line">Single line text</option>
+                <option <?= $field["type"] === "single_line_list" ? 'selected' : '' ?> value="single_line_list">List of single lines</option>
+                <option <?= $field["type"] === "multi_line" ? 'selected' : '' ?> value="multi_line">Multi-line text</option>
             </select>
         </div>
 
