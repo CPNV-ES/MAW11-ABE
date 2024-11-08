@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Exercises;
 use App\Models\Fields;
+use Exception;
 
 class Controller
 {
@@ -32,8 +33,10 @@ class Controller
         return $data;
     }
 
-    protected static function handleError($errorPage = '/error500.php')
+    protected static function handleError($error = null, $errorPage = "/error500.php")
     {
         include_once ERROR_DIR . $errorPage;
+
+        throw new Exception($error);
     }
 }
