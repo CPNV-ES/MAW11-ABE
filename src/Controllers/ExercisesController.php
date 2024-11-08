@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Exercises;
+use App\Models\Fields;
 
 use Exception;
 
@@ -50,7 +51,16 @@ class ExercisesController extends Controller
         try {
             $data = parent::getModelDataByIds($parameters);
 
-            Exercises::updateStatus($data["exercise"]["id"], $_GET["status"]);
+            $exercise = $data["exercise"];
+
+            $exerciseFields = Fields::getFieldsFromExerciseId($exercise["id"]);
+
+            if (empty($exerciseFields)) {
+                header("Location: /exercises/" . $exercise["id"] . "/fields");
+                return;
+            }
+
+            Exercises::updateStatus($exercise["id"], $_GET["status"]);
 
             header("Location: /exercises");
         } catch (Exception $e) {
