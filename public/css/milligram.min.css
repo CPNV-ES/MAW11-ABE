@@ -465,6 +465,7 @@ table {
     overflow-x: auto;
     text-align: left;
     width: 100%;
+    line-height: normal;
 }
 td,
 th {
