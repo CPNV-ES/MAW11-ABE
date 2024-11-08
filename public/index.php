@@ -47,6 +47,7 @@ $router->addRoute(new Route('GET', '/exercises/{exerciseId}/fulfillments/new', [
 
 $router->addRoute(new Route('POST', '/exercises', [ExercisesController::class, 'createExercise']));
 $router->addRoute(new Route('POST', '/exercises/{exerciseId}/fields', [FieldsController::class, 'createField']));
+$router->addRoute(new Route('POST', '/exercises/{exerciseId}/fields/{fieldId}', [FieldsController::class, 'updateField']));
 $router->addRoute(new Route('POST', '/exercises/{exerciseId}/fulfillments', [FulfillmentsController::class, 'createFulfillment']));
 
 $router->addRoute(new Route('GET', '/exercises/{exerciseId}/fields/{fieldId}/delete', [FieldsController::class, 'deleteField']));

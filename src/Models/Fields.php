@@ -27,6 +27,12 @@ class Fields extends Model
         return $fields;
     }
 
+
+    public static function updateField($id, $field)
+    {
+        parent::update(["label", "type"], "id", ["id" => $id, "label" => $field["label"], "type" => $field["type"]]);
+    }
+
     public static function deleteFieldFromId($id)
     {
         parent::delete("id", $id);
