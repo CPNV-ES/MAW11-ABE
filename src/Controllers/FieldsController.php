@@ -48,4 +48,17 @@ class FieldsController extends Controller
             self::handleError();
         }
     }
+
+    public static function updateField($parameters)
+    {
+        try {
+            $data = parent::getModelDataByIds($parameters);
+
+            Fields::updateField($data["field"]["id"], $_POST["field"]);
+
+            header("Location: /exercises/" . $data["exercise"]["id"] . "/fields");
+        } catch (Exception $e) {
+            self::handleError();
+        }
+    }
 }

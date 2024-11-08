@@ -42,10 +42,12 @@ $router->addRoute(new Route('GET', '/exercises/new', [Controller::class, '/AddEx
 $router->addRoute(new Route('GET', '/exercises/answering', [ExercisesController::class, 'showAnsweringExercises']));
 $router->addRoute(new Route('GET', '/exercises/{exerciseId}', [ExercisesController::class, 'updateExerciseStatus']));
 $router->addRoute(new Route('GET', '/exercises/{exerciseId}/fields', [FieldsController::class, 'showExerciseFields']));
+$router->addRoute(new Route('GET', '/exercises/{exerciseId}/fields/{fieldId}/edit', [Controller::class, '/EditField.php']));
 $router->addRoute(new Route('GET', '/exercises/{exerciseId}/fulfillments/new', [FulfillmentsController::class, 'showAnswerExercise']));
 
 $router->addRoute(new Route('POST', '/exercises', [ExercisesController::class, 'createExercise']));
 $router->addRoute(new Route('POST', '/exercises/{exerciseId}/fields', [FieldsController::class, 'createField']));
+$router->addRoute(new Route('POST', '/exercises/{exerciseId}/fields/{fieldId}', [FieldsController::class, 'updateField']));
 $router->addRoute(new Route('POST', '/exercises/{exerciseId}/fulfillments', [FulfillmentsController::class, 'createFulfillment']));
 
 $router->addRoute(new Route('GET', '/exercises/{exerciseId}/fields/{fieldId}/delete', [FieldsController::class, 'deleteField']));

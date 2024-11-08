@@ -34,6 +34,19 @@ a {
     background-color: transparent;
 }
 
+header.heading .exercise-label a {
+    color: white;
+}
+
+header.heading .exercise-title,
+header.heading .exercise-label a {
+    font-weight: bold;
+}
+
+header.heading .exercise-label a:hover {
+    color: #606c76;
+}
+
 header.heading img {
     height: 100%;
 }
@@ -58,4 +71,11 @@ main.container {
 div.field,
 div.actions {
     margin-bottom: 10px;
+}
+
+input,
+select {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: 1.15;
 }
