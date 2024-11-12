@@ -56,7 +56,7 @@ class FulfillmentsController extends Controller
         try {
             $fulfillments = Fulfillments::findBy("exercise_id", $exerciseId);
 
-            include_once PAGE_DIR . "/AnswerExercise.php";
+            include_once PAGE_DIR . "/ExerciseResults.php";
         } catch (Exception $e) {
             self::handleError();
         }
