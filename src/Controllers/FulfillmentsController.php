@@ -51,10 +51,12 @@ class FulfillmentsController extends Controller
 
     public static function showExerciseResults($parameters)
     {
-        $exerciseId = parent::getModelDataByIds($parameters)["exercise"]["id"];
-
         try {
-            $fulfillments = Fulfillments::findBy("exercise_id", $exerciseId);
+            $data = parent::getModelDataByIds($parameters);
+
+            $exercise = Exercises::findBy("id", $data["exercise"]["id"])[0];
+
+            $fulfillments = Fulfillments::findBy("exercise_id", $exercise["id"])[0];
 
             include_once PAGE_DIR . "/ExerciseResults.php";
         } catch (Exception $e) {
