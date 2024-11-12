@@ -8,4 +8,15 @@ class Answers extends Model
     {
         return parent::insert(["field_id", "fulfillment_id", "contents"], ["field_id" => $fieldId, "fulfillment_id" => $fulfillmentId, "contents" => $contents]);
     }
+
+    public static function findAnswersFromFulfillments($fulfillments)
+    {
+        $allAnswers = null;
+
+        foreach ($fulfillments as $fulfillment) {
+            $allAnswers[] = Answers::findBy("fulfillment_id", $fulfillment["id"])[0];
+        }
+
+        return $allAnswers;
+    }
 }
