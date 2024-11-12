@@ -21,43 +21,21 @@ ob_start();
         <thead>
             <tr>
                 <th>Take</th>
-                <th><a href="/exercises/174/results/309">Single line</a></th>
-                <th><a href="/exercises/174/results/310">Single line</a></th>
-                <th><a href="/exercises/174/results/311">Single line</a></th>
+                <?php foreach ($fields as $field): ?>
+                    <th><a href="/exercises/<?= $exercise["id"]; ?>/results/<?= $field["id"]; ?>"><?= htmlspecialchars($field["label"], ENT_QUOTES, 'UTF-8') ?></a></th>
+                <?php endforeach; ?>
             </tr>
         </thead>
 
         <tbody>
-            <tr>
-                <td><a href="/exercises/174/fulfillments/103">2024-11-06 11:15:11 UTC</a></td>
-                <td class="answer"><i class="fa fa-check short"></i></td>
-                <td class="answer"><i class="fa fa-check short"></i></td>
-                <td class="answer"><i class="fa fa-check short"></i></td>
-            </tr>
-            <tr>
-                <td><a href="/exercises/174/fulfillments/104">2024-11-06 11:15:20 UTC</a></td>
-                <td class="answer"><i class="fa fa-check short"></i></td>
-                <td class="answer"><i class="fa fa-check short"></i></td>
-                <td class="answer"><i class="fa fa-check short"></i></td>
-            </tr>
-            <tr>
-                <td><a href="/exercises/174/fulfillments/105">2024-11-06 11:15:26 UTC</a></td>
-                <td class="answer"><i class="fa fa-check short"></i></td>
-                <td class="answer"><i class="fa fa-check short"></i></td>
-                <td class="answer"><i class="fa fa-check short"></i></td>
-            </tr>
-            <tr>
-                <td><a href="/exercises/174/fulfillments/111">2024-11-08 07:23:45 UTC</a></td>
-                <td class="answer"><i class="fa fa-check short"></i></td>
-                <td class="answer"><i class="fa fa-check short"></i></td>
-                <td class="answer"><i class="fa fa-check short"></i></td>
-            </tr>
-            <tr>
-                <td><a href="/exercises/174/fulfillments/112">2024-11-08 07:25:13 UTC</a></td>
-                <td class="answer"><i class="fa fa-check short"></i></td>
-                <td class="answer"><i class="fa fa-check short"></i></td>
-                <td class="answer"><i class="fa fa-check short"></i></td>
-            </tr>
+            <?php foreach ($fulfillments as $fulfillment): ?>
+                <tr>
+                    <td><a href="/exercises/<?= $exercise["id"]; ?>/fulfillments/<?= $fulfillment["id"]; ?>"><?= htmlspecialchars($fulfillment["fulfillment"], ENT_QUOTES, 'UTF-8') ?> UTC</a></td>
+                    <?php foreach ($fields as $field): ?>
+                        <td class="answer"><i class="fa fa-check short"></i></td>
+                    <?php endforeach; ?>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 </main>
