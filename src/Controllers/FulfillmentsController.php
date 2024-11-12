@@ -56,6 +56,8 @@ class FulfillmentsController extends Controller
 
             $exercise = Exercises::findBy("id", $data["exercise"]["id"])[0];
 
+            $fields = Fields::getFields($data["exercise"]["id"]);
+
             $fulfillments = Fulfillments::findBy("exercise_id", $exercise["id"])[0];
 
             include_once PAGE_DIR . "/ExerciseResults.php";
