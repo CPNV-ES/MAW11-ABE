@@ -8,4 +8,19 @@ class Fulfillments extends Model
     {
         return parent::insert(["fulfillment", "exercise_id"], ["fulfillment" => date('Y-m-d H:i:s'), "exercise_id" => $exerciseId]);
     }
+
+    public static function getFulfillmentsWithAnswers($column, $value)
+    {
+        $fulfillments = Fulfillments::findBy($column, $value);
+
+        $newFulfillments = [];
+
+        foreach ($fulfillments as $fulfillment) {
+            $fulfillment["answers"] = Answers::findAnswersFromFulfillment($fulfillment);
+
+            $newFulfillments[] = $fulfillment;
+        }
+
+        return $newFulfillments;
+    }
 }

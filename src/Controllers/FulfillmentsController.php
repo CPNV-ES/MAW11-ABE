@@ -58,9 +58,8 @@ class FulfillmentsController extends Controller
 
             $fields = Fields::getFields($data["exercise"]["id"]);
 
-            $fulfillments = Fulfillments::findBy("exercise_id", $exercise["id"]);
-
-            $answers = Answers::findAnswersFromFulfillments($fulfillments);
+            $column = "exercise_id";
+            $fulfillments = Fulfillments::getFulfillmentsWithAnswers($column, $exercise["id"]);
 
             include_once PAGE_DIR . "/ExerciseResults.php";
         } catch (Exception $e) {

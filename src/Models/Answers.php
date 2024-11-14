@@ -9,14 +9,27 @@ class Answers extends Model
         return parent::insert(["field_id", "fulfillment_id", "contents"], ["field_id" => $fieldId, "fulfillment_id" => $fulfillmentId, "contents" => $contents]);
     }
 
-    public static function findAnswersFromFulfillments($fulfillments)
+    public static function findAnswersFromFulfillment($fulfillment)
     {
-        $allAnswers = null;
+        $answers = Answers::findBy("fulfillment_id", $fulfillment["id"]);
 
-        foreach ($fulfillments as $fulfillment) {
-            $allAnswers[] = Answers::findBy("fulfillment_id", $fulfillment["id"])[0];
+        $answers = array_map([self::class, 'addIconClassToAnswer'], $answers);
+
+        return $answers;
+    }
+
+    private static function addIconClassToAnswer($answer)
+    {
+        $answerLength = strlen($answer["content"]);
+
+        if ($answerLength === 0) {
+            $answer["class"] = "fa-times empty";
+        } elseif ($answerLength >= 10) {
+            $answer["class"] = "fa-check-double filled";
+        } else {
+            $answer["class"] = "fa-check short";
         }
 
-        return $allAnswers;
+        return $answer;
     }
 }
