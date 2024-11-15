@@ -50,3 +50,15 @@ header.heading .exercise-label a {
     color: white;
     font-weight: bold;
 }
+
+.answer i.short {
+    color: #419d78;
+}
+
+.answer i.filled {
+    color: #419d78;
+}
+
+.answer i.empty {
+    color: #f45866;
+}

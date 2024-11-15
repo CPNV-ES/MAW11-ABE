@@ -20,7 +20,7 @@ class Answers extends Model
 
     private static function addIconClassToAnswer($answer)
     {
-        $answerLength = strlen($answer["content"]);
+        $answerLength = strlen($answer["contents"]);
 
         if ($answerLength === 0) {
             $answer["class"] = "fa-times empty";

@@ -31,8 +31,8 @@ ob_start();
             <?php foreach ($fulfillments as $fulfillment): ?>
                 <tr>
                     <td><a href="/exercises/<?= $exercise["id"]; ?>/fulfillments/<?= $fulfillment["id"]; ?>"><?= htmlspecialchars($fulfillment["fulfillment"], ENT_QUOTES, 'UTF-8') ?> UTC</a></td>
-                    <?php foreach ($fields as $field): ?>
-                        <td class="answer"><i class="fa fa-check short"></i></td>
+                    <?php foreach ($fulfillment['answers'] as $answer): ?>
+                        <td class="answer"><i class="fa <?= $answer["class"] ?>"></i></td>
                     <?php endforeach; ?>
                 </tr>
             <?php endforeach; ?>
