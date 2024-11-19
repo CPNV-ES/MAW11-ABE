@@ -18,6 +18,21 @@ class Answers extends Model
         return $answers;
     }
 
+    public static function findAnswersFromFulfillmentField($fulfillment, $field)
+    {
+        $answers = Answers::findBy("field_id", $field["id"]);
+
+        $fieldAnswer = null;
+
+        foreach ($answers as $key => $answer) {
+            if ($answer["fulfillment_id"] === $fulfillment["id"]) {
+                $fieldAnswer = $answers[$key];
+            }
+        }
+
+        return $fieldAnswer;
+    }
+
     private static function addIconClassToAnswer($answer)
     {
         $answerLength = strlen($answer["contents"]);
