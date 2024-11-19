@@ -84,7 +84,7 @@ class Model
         }
     }
 
-    protected static function tableName()
+    public static function tableName()
     {
         $class_name = strtolower(get_called_class());
         preg_match('/(\\\\)?(\\w+?)$/', $class_name, $matches);
