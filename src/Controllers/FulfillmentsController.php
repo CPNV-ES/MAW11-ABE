@@ -67,7 +67,7 @@ class FulfillmentsController extends Controller
         }
     }
 
-    public static function updateFulfillment($parameters)
+    public static function showEditFulfillment($parameters)
     {
         try {
             $data = parent::getModelDataByIds($parameters);
