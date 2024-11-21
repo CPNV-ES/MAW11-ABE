@@ -98,8 +98,6 @@ class FulfillmentsController extends Controller
 
             $fulfillment = $data["fulfillment"];
 
-            error_log(print_r($_POST, true));
-
             foreach ($_POST["fulfillment"]["answers"] as $key => $answer) {
                 Answers::updateAnswer($key, $answer["value"]);
             }
