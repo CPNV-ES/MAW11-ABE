@@ -9,6 +9,11 @@ class Answers extends Model
         return parent::insert(["field_id", "fulfillment_id", "contents"], ["field_id" => $fieldId, "fulfillment_id" => $fulfillmentId, "contents" => $contents]);
     }
 
+    public static function updateAnswer($id, $contents)
+    {
+        parent::update(["contents"], "id", ["id" => $id, "contents" => $contents]);
+    }
+
     public static function findAnswersFromFulfillment($fulfillment)
     {
         $answers = Answers::findBy("fulfillment_id", $fulfillment["id"]);

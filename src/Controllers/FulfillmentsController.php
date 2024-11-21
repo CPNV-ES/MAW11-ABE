@@ -88,4 +88,25 @@ class FulfillmentsController extends Controller
             self::handleError();
         }
     }
+
+    public static function updateFulfillment($parameters)
+    {
+        try {
+            $data = parent::getModelDataByIds($parameters);
+
+            $exercise = $data["exercise"];
+
+            $fulfillment = $data["fulfillment"];
+
+            error_log(print_r($_POST, true));
+
+            foreach ($_POST["fulfillment"]["answers"] as $key => $answer) {
+                Answers::updateAnswer($key, $answer["value"]);
+            }
+
+            header("Location: /exercises/" . $exercise["id"] . "/fulfillments/" . $fulfillment["id"] . "/edit");
+        } catch (Exception $e) {
+            self::handleError();
+        }
+    }
 }

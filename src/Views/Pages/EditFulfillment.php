@@ -20,17 +20,17 @@ ob_start();
     <h1>Your take</h1>
     <p>Bookmark this page, it's yours. You'll be able to come back later to finish.</p>
 
-    <form action="/exercises/<?= $exercise["id"] ?>/fulfillments" method="post">
+    <form action="/exercises/<?= $exercise["id"] ?>/fulfillments/<?= $fulfillment["id"] ?>" method="post">
 
         <?php foreach ($fields as $field): ?>
             <div class="field">
-                <label for="fulfillment_answers_<?= $field["id"] ?>_value"><?= htmlspecialchars($field["label"], ENT_QUOTES, 'UTF-8') ?></label>
+                <label for="fulfillment_answers_<?= $field["answer"]["id"] ?>_value"><?= htmlspecialchars($field["label"], ENT_QUOTES, 'UTF-8') ?></label>
                 <?php if ($field["type"] === "single_line"): ?>
-                    <input type="text" name="fulfillment[answers][<?= $field["id"] ?>][value]"
+                    <input type="text" name="fulfillment[answers][<?= $field["answer"]["id"] ?>][value]"
                         id="fulfillment_answers_id_value" value="<?= htmlspecialchars($field["answer"]["contents"], ENT_QUOTES, 'UTF-8') ?>" />
                 <?php else: ?>
-                    <textarea name="fulfillment[answers][<?= $field["id"] ?>][value]"
-                        id="fulfillment_answers_<?= $field["id"] ?>_value"
+                    <textarea name="fulfillment[answers][<?= $field["answer"]["id"] ?>][value]"
+                        id="fulfillment_answers_<?= $field["answer"]["id"] ?>_value"
                         value="<?= htmlspecialchars($field["answer"]["contents"], ENT_QUOTES, 'UTF-8') ?>"></textarea>
                 <?php endif; ?>
             </div>
