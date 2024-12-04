@@ -66,4 +66,45 @@ class FulfillmentsController extends Controller
             self::handleError();
         }
     }
+
+    public static function showEditFulfillment($parameters)
+    {
+        try {
+            $data = parent::getModelDataByIds($parameters);
+
+            $exercise = $data["exercise"];
+
+            $fields = Fields::getFields($exercise["id"]);
+
+            $fulfillment = $data["fulfillment"];
+
+            $fields = array_map(function ($field) use ($fulfillment) {
+                $field["answer"] = Answers::findAnswersFromFulfillmentField($fulfillment, $field);
+                return $field;
+            }, $fields);
+
+            include_once PAGE_DIR . "/EditFulfillment.php";
+        } catch (Exception $e) {
+            self::handleError();
+        }
+    }
+
+    public static function updateFulfillment($parameters)
+    {
+        try {
+            $data = parent::getModelDataByIds($parameters);
+
+            $exercise = $data["exercise"];
+
+            $fulfillment = $data["fulfillment"];
+
+            foreach ($_POST["fulfillment"]["answers"] as $key => $answer) {
+                Answers::updateAnswer($key, $answer["value"]);
+            }
+
+            header("Location: /exercises/" . $exercise["id"] . "/fulfillments/" . $fulfillment["id"] . "/edit");
+        } catch (Exception $e) {
+            self::handleError();
+        }
+    }
 }

@@ -131,3 +131,15 @@ li {
 .card a.button {
     display: block;
 }
+
+input,
+select {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: 1.15;
+}
+
+div.field,
+div.actions {
+    margin-bottom: 10px;
+}
