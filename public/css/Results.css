@@ -62,3 +62,15 @@ header.heading .exercise-label a {
 .answer i.empty {
     color: #f45866;
 }
+
+dl.answer dt {
+    font-weight: bold;
+}
+
+.button,
+button,
+dd,
+dt,
+li {
+    margin-bottom: 1rem;
+}
