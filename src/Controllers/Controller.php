@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\Exercises;
 use App\Models\Fields;
+use App\Models\Fulfillments;
 use Exception;
 
 class Controller
@@ -26,6 +27,9 @@ class Controller
                 }
                 if (str_contains($key, "field")) {
                     $data["field"] = Fields::findBy("id", $id)[0];
+                }
+                if (str_contains($key, "fulfillment")) {
+                    $data["fulfillment"] = Fulfillments::findBy("id", $id)[0];
                 }
             }
         }

@@ -110,7 +110,7 @@ class FulfillmentsController extends Controller
             self::handleError();
         }
     }
-
+  
     public static function updateFulfillment($parameters)
     {
         try {
