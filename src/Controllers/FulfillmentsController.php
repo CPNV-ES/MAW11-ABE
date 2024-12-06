@@ -110,7 +110,22 @@ class FulfillmentsController extends Controller
             self::handleError();
         }
     }
-  
+
+    public static function showFulfillmentsOfExercise($parameters)
+    {
+        try {
+            $data = parent::getModelDataByIds($parameters);
+
+            $exercise = $data["exercise"];
+
+            $fulfillments = Fulfillments::findBy("exercise_id", $exercise["id"]);
+
+            include_once PAGE_DIR . "/ExerciseFulfillments.php";
+        } catch (Exception $e) {
+            self::handleError();
+        }
+    }
+
     public static function updateFulfillment($parameters)
     {
         try {

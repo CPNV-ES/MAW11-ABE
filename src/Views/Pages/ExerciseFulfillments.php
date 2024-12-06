@@ -4,8 +4,6 @@
 $title = "ExerciseLooper";
 $style = '<link rel="stylesheet" href="/css/Fulfillment.css">';
 
-$exercise = $data["exercise"];
-
 ob_start();
 ?>
 
@@ -17,7 +15,7 @@ ob_start();
 </header>
 
 <main class="container">
-    <h1>Fulfillments for m k kc dc</h1>
+    <h1>Fulfillments for <?= $exercise["title"] ?></h1>
 
     <table>
         <thead>
@@ -28,18 +26,14 @@ ob_start();
         </thead>
 
         <tbody>
-            <tr>
-                <td>2024-12-06 07:08:56 UTC</td>
-                <td><a href="/exercises/227/fulfillments/173">Show</a></td>
-                <td><a href="/exercises/227/fulfillments/173/edit">Edit</a></td>
-                <td><a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/exercises/227/fulfillments/173">Destroy</a></td>
-            </tr>
-            <tr>
-                <td>2024-12-06 07:08:59 UTC</td>
-                <td><a href="/exercises/227/fulfillments/174">Show</a></td>
-                <td><a href="/exercises/227/fulfillments/174/edit">Edit</a></td>
-                <td><a data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/exercises/227/fulfillments/174">Destroy</a></td>
-            </tr>
+            <?php foreach ($fulfillments as $fulfillment): ?>
+                <tr>
+                    <td><?= $fulfillment["fulfillment"] ?> UTC</td>
+                    <td><a href="/exercises/<?= $exercise["id"] ?>/fulfillments/<?= $fulfillment["id"] ?>">Show</a></td>
+                    <td><a href="/exercises/<?= $exercise["id"] ?>/fulfillments/<?= $fulfillment["id"] ?>/edit">Edit</a></td>
+                    <td><a href="/exercises/<?= $exercise["id"] ?>/fulfillments/<?= $fulfillment["id"] ?>/delete">Destroy</a></td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 </main>
