@@ -110,7 +110,22 @@ class FulfillmentsController extends Controller
             self::handleError();
         }
     }
-  
+
+    public static function showFulfillmentsOfExercise($parameters)
+    {
+        try {
+            $data = parent::getModelDataByIds($parameters);
+
+            $exercise = $data["exercise"];
+
+            $fulfillments = Fulfillments::findBy("exercise_id", $exercise["id"]);
+
+            include_once PAGE_DIR . "/ExerciseFulfillments.php";
+        } catch (Exception $e) {
+            self::handleError();
+        }
+    }
+
     public static function updateFulfillment($parameters)
     {
         try {
@@ -125,6 +140,21 @@ class FulfillmentsController extends Controller
             }
 
             header("Location: /exercises/" . $exercise["id"] . "/fulfillments/" . $fulfillment["id"] . "/edit");
+        } catch (Exception $e) {
+            self::handleError();
+        }
+    }
+
+    public static function deleteFulfillment($parameters)
+    {
+        try {
+            $data = parent::getModelDataByIds($parameters);
+
+            $fulfillment = $data["fulfillment"];
+
+            Fulfillments::deleteFulfillmentFromId($fulfillment["id"]);
+
+            header("Location: /");
         } catch (Exception $e) {
             self::handleError();
         }
