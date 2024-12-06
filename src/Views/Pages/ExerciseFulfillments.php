@@ -31,7 +31,7 @@ ob_start();
                     <td><?= $fulfillment["fulfillment"] ?> UTC</td>
                     <td><a href="/exercises/<?= $exercise["id"] ?>/fulfillments/<?= $fulfillment["id"] ?>">Show</a></td>
                     <td><a href="/exercises/<?= $exercise["id"] ?>/fulfillments/<?= $fulfillment["id"] ?>/edit">Edit</a></td>
-                    <td><a href="/exercises/<?= $exercise["id"] ?>/fulfillments/<?= $fulfillment["id"] ?>/delete">Destroy</a></td>
+                    <td><a href="/exercises/<?= $exercise["id"] ?>/fulfillments/<?= $fulfillment["id"] ?>/delete" onclick="return confirm('Are you sure?');">Destroy</a></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

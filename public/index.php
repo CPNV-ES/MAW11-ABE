@@ -58,5 +58,6 @@ $router->addRoute(new Route('POST', '/exercises/{exerciseId}/fulfillments/{fulfi
 
 $router->addRoute(new Route('GET', '/exercises/{exerciseId}/fields/{fieldId}/delete', [FieldsController::class, 'deleteField']));
 $router->addRoute(new Route('GET', '/exercises/{exerciseId}/delete', [ExercisesController::class, 'deleteExercise']));
+$router->addRoute(new Route('GET', '/exercises/{exerciseId}/fulfillments/{fulfillmentId}/delete', [FulfillmentsController::class, 'deleteFulfillment']));
 
 $router->matchRoute();

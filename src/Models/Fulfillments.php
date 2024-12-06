@@ -34,4 +34,9 @@ class Fulfillments extends Model
 
         return $fulfillments;
     }
+
+    public static function deleteFulfillmentFromId($id)
+    {
+        parent::delete("id", $id);
+    }
 }

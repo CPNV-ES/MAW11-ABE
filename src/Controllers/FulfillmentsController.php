@@ -144,4 +144,19 @@ class FulfillmentsController extends Controller
             self::handleError();
         }
     }
+
+    public static function deleteFulfillment($parameters)
+    {
+        try {
+            $data = parent::getModelDataByIds($parameters);
+
+            $fulfillment = $data["fulfillment"];
+
+            Fulfillments::deleteFulfillmentFromId($fulfillment["id"]);
+
+            header("Location: /");
+        } catch (Exception $e) {
+            self::handleError();
+        }
+    }
 }
