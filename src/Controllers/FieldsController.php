@@ -3,7 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\Fields;
-
+use App\Models\Answers;
+use App\Models\Fulfillments;
 use Exception;
 
 class FieldsController extends Controller
@@ -57,6 +58,29 @@ class FieldsController extends Controller
             Fields::updateField($data["field"]["id"], $_POST["field"]);
 
             header("Location: /exercises/" . $data["exercise"]["id"] . "/fields");
+        } catch (Exception $e) {
+            self::handleError();
+        }
+    }
+
+    public static function showFieldAnswers($parameters)
+    {
+        try {
+            $data = parent::getModelDataByIds($parameters);
+
+            $exercise = $data["exercise"];
+
+            $field = $data["field"];
+
+            $answers = Answers::findAnswersFromField($field);
+
+            $fulfillments = Fulfillments::findFulfillmentsFromAnswers($answers);
+
+            for ($i = 0; $i < count($answers); $i++) {
+                $answers[$i]["fulfillment"] = $fulfillments[$i];
+            }
+
+            include_once PAGE_DIR . "/AnswersField.php";
         } catch (Exception $e) {
             self::handleError();
         }
