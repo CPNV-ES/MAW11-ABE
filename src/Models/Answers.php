@@ -14,6 +14,13 @@ class Answers extends Model
         parent::update(["contents"], "id", ["id" => $id, "contents" => $contents]);
     }
 
+    public static function findAnswersFromField($field)
+    {
+        $answers = Answers::findBy("field_id", $field["id"]);
+
+        return $answers;
+    }
+
     public static function findAnswersFromFulfillment($fulfillment)
     {
         $answers = Answers::findBy("fulfillment_id", $fulfillment["id"]);

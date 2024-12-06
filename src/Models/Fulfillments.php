@@ -23,4 +23,15 @@ class Fulfillments extends Model
 
         return $newFulfillments;
     }
+
+    public static function findFulfillmentsFromAnswers($answers)
+    {
+        $fulfillments = [];
+
+        foreach ($answers as $answer) {
+            $fulfillments[] = Fulfillments::findBy("id", $answer["fulfillment_id"])[0];
+        }
+
+        return $fulfillments;
+    }
 }
