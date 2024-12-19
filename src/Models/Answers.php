@@ -6,43 +6,43 @@ class Answers extends Model
 {
     public static function addAnswer($fieldId, $fulfillmentId, $contents)
     {
-        return parent::insert(["field_id", "fulfillment_id", "contents"], ["field_id" => $fieldId, "fulfillment_id" => $fulfillmentId, "contents" => $contents]);
+        return parent::insert(
+            ['field_id', 'fulfillment_id', 'contents'],
+            ['field_id' => $fieldId, 'fulfillment_id' => $fulfillmentId, 'contents' => $contents]
+        );
     }
 
     public static function updateAnswer($id, $contents)
     {
-        parent::update(["contents"], "id", ["id" => $id, "contents" => $contents]);
+        return parent::update(
+            ['contents'],
+            'id',
+            ['id' => $id, 'contents' => $contents]
+        );
     }
 
     public static function findAnswersFromField($field)
     {
-        $answers = Answers::findBy("field_id", $field["id"]);
-
-        return $answers;
+        return self::findBy('field_id', $field['id']);
     }
 
     public static function findAnswersFromFulfillment($fulfillment)
     {
-        $answers = Answers::findBy("fulfillment_id", $fulfillment["id"]);
-
-        $answers = array_map([self::class, 'addIconClassToAnswer'], $answers);
-
-        return $answers;
+        $answers = self::findBy('fulfillment_id', $fulfillment['id']);
+        return array_map([self::class, 'addIconClassToAnswer'], $answers);
     }
 
     public static function findAnswersFromFulfillmentField($fulfillment, $field)
     {
-        $answers = Answers::findBy("field_id", $field["id"]);
-
-        $fieldAnswer = null;
-
-        foreach ($answers as $key => $answer) {
-            if ($answer["fulfillment_id"] === $fulfillment["id"]) {
-                $fieldAnswer = $answers[$key];
+        $answers = self::findBy('field_id', $field['id']);
+        
+        foreach ($answers as $answer) {
+            if ($answer['fulfillment_id'] === $fulfillment['id']) {
+                return $answer;
             }
         }
 
-        return $fieldAnswer;
+        return null;
     }
 
     private static function addIconClassToAnswer($answer)
