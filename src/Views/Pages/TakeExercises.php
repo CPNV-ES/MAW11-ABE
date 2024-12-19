@@ -5,6 +5,7 @@ $title = "ExerciseLooper";
 $style = '<link rel="stylesheet" href="/css/Fulfillment.css">';
 
 ob_start();
+
 ?>
 
 <header class="heading answering">
@@ -26,7 +27,6 @@ ob_start();
         <?php endforeach; ?>
     </ul>
 </main>
-
 
 <?php
 

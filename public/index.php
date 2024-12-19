@@ -2,62 +2,36 @@
 
 session_start();
 
-define('BASE_DIR', dirname(__FILE__) . '/..');
-define('PUBLIC_DIR', dirname(__FILE__));
+use App\Core\Router;
+use Dotenv\Dotenv;
+
+define('BASE_DIR', dirname(__DIR__));
+define('PUBLIC_DIR', __DIR__);
 define('IMG_DIR', PUBLIC_DIR . '/img');
 define('SOURCE_DIR', BASE_DIR . '/src');
 define('CONTROLLER_DIR', SOURCE_DIR . '/Controllers');
 define('CORE_DIR', SOURCE_DIR . '/Core');
 define('MODEL_DIR', SOURCE_DIR . '/Models');
+define('ROUTES_DIR', SOURCE_DIR . '/Routes');
 define('VIEW_DIR', SOURCE_DIR . '/Views');
 define('ERROR_DIR', VIEW_DIR . '/Errors');
 define('PAGE_DIR', VIEW_DIR . '/Pages');
 
-
 require_once BASE_DIR . '/vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(BASE_DIR);
+$dotenv = Dotenv::createImmutable(BASE_DIR);
 $dotenv->load();
 
-use App\Core\Route;
-use App\Core\Router;
-use App\Controllers\Controller;
-use App\Controllers\FieldsController;
-use App\Controllers\ExercisesController;
-use App\Controllers\FulfillmentsController;
+$route = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?: '/';
+$method = $_SERVER['REQUEST_METHOD'];
 
-$route = $_SERVER['REQUEST_URI'];
-$method = $_SERVER["REQUEST_METHOD"];
+require_once CORE_DIR . '/Router.php';
 
-if (!empty($_SERVER["QUERY_STRING"])) {
-    $route = substr($route, 0, strlen($_SERVER["REQUEST_URI"]) - strlen($_SERVER["QUERY_STRING"]) - 1);
-}
-
-include_once CORE_DIR . '/Router.php';
 $router = new Router([$route, $method]);
 
-$router->addRoute(new Route('GET', '/', [Controller::class, '/Home.php']));
-$router->addRoute(new Route('GET', '/exercises', [ExercisesController::class, 'showManageExercises']));
-$router->addRoute(new Route('GET', '/exercises/new', [Controller::class, '/AddExercise.php']));
-$router->addRoute(new Route('GET', '/exercises/answering', [ExercisesController::class, 'showAnsweringExercises']));
-$router->addRoute(new Route('GET', '/exercises/{exerciseId}', [ExercisesController::class, 'updateExerciseStatus']));
-$router->addRoute(new Route('GET', '/exercises/{exerciseId}/fields', [FieldsController::class, 'showExerciseFields']));
-$router->addRoute(new Route('GET', '/exercises/{exerciseId}/fields/{fieldId}/edit', [Controller::class, '/EditField.php']));
-$router->addRoute(new Route('GET', '/exercises/{exerciseId}/fulfillments', [FulfillmentsController::class, 'showFulfillmentsOfExercise']));
-$router->addRoute(new Route('GET', '/exercises/{exerciseId}/fulfillments/new', [FulfillmentsController::class, 'showAnswerExercise']));
-$router->addRoute(new Route('GET', '/exercises/{exerciseId}/fulfillments/{fulfillmentId}/edit', [FulfillmentsController::class, 'showEditFulfillment']));
-$router->addRoute(new Route('GET', '/exercises/{exerciseId}/fulfillments/{fulfillmentId}', [FulfillmentsController::class, 'showFulfillmentAnswers']));
-$router->addRoute(new Route('GET', '/exercises/{exerciseId}/results', [FulfillmentsController::class, 'showExerciseResults']));
-$router->addRoute(new Route('GET', '/exercises/{exerciseId}/results/{fieldId}', [FieldsController::class, 'showFieldAnswers']));
-
-$router->addRoute(new Route('POST', '/exercises', [ExercisesController::class, 'createExercise']));
-$router->addRoute(new Route('POST', '/exercises/{exerciseId}/fields', [FieldsController::class, 'createField']));
-$router->addRoute(new Route('POST', '/exercises/{exerciseId}/fields/{fieldId}', [FieldsController::class, 'updateField']));
-$router->addRoute(new Route('POST', '/exercises/{exerciseId}/fulfillments', [FulfillmentsController::class, 'createFulfillment']));
-$router->addRoute(new Route('POST', '/exercises/{exerciseId}/fulfillments/{fulfillmentId}', [FulfillmentsController::class, 'updateFulfillment']));
-
-$router->addRoute(new Route('GET', '/exercises/{exerciseId}/fields/{fieldId}/delete', [FieldsController::class, 'deleteField']));
-$router->addRoute(new Route('GET', '/exercises/{exerciseId}/delete', [ExercisesController::class, 'deleteExercise']));
-$router->addRoute(new Route('GET', '/exercises/{exerciseId}/fulfillments/{fulfillmentId}/delete', [FulfillmentsController::class, 'deleteFulfillment']));
+$routes = ['Exercise', 'Field', 'Fulfillment', 'Home', 'Results'];
+foreach ($routes as $routeFile) {
+    require_once ROUTES_DIR . "/{$routeFile}.php";
+}
 
 $router->matchRoute();

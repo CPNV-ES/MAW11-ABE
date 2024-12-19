@@ -4,11 +4,9 @@
 $title = "ExerciseLooper";
 $style = '<link rel="stylesheet" href="/css/Fields.css">';
 
-$exercise = $data["exercise"];
-
 ob_start();
-?>
 
+?>
 
 <header class="heading managing">
     <section class="container">

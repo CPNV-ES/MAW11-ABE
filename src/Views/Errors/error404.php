@@ -5,6 +5,7 @@ $title = "404 error";
 $style = '<link rel="stylesheet" href="/css/error.css">';
 
 ob_start();
+
 ?>
 
 <div class="rails-default-error-page">
@@ -16,7 +17,6 @@ ob_start();
         <p>If you are the application owner check the logs for more information.</p>
     </div>
 </div>
-
 
 <?php
 

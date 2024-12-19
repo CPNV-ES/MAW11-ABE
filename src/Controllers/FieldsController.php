@@ -11,13 +11,10 @@ class FieldsController extends Controller
 {
     public static function createField($parameters)
     {
-        $fieldLabel = $_POST["field"]["label"];
-        $fieldType = $_POST["field"]["type"];
         $exerciseId = $parameters["exerciseId"];
 
         try {
-            Fields::addField($fieldLabel, $fieldType, $exerciseId)[0];
-
+            Fields::addField($_POST["field"]["label"], $_POST["field"]["type"], $exerciseId)[0];
             header("Location: /exercises/" . $exerciseId . "/fields");
         } catch (Exception $e) {
             self::handleError();
@@ -28,8 +25,8 @@ class FieldsController extends Controller
     {
         try {
             $data = parent::getModelDataByIds($parameters);
-
             $fields = Fields::getFieldsFromExerciseId($data["exercise"]["id"]);
+            $exercise = $data["exercise"];
 
             include_once PAGE_DIR . "/ManageExerciseFields.php";
         } catch (Exception $e) {
@@ -41,9 +38,7 @@ class FieldsController extends Controller
     {
         try {
             $data = parent::getModelDataByIds($parameters);
-
             Fields::deleteFieldFromId($data["field"]["id"]);
-
             header("Location: /exercises/" . $data["exercise"]["id"] . "/fields/");
         } catch (Exception $e) {
             self::handleError();
@@ -54,33 +49,8 @@ class FieldsController extends Controller
     {
         try {
             $data = parent::getModelDataByIds($parameters);
-
             Fields::updateField($data["field"]["id"], $_POST["field"]);
-
             header("Location: /exercises/" . $data["exercise"]["id"] . "/fields");
-        } catch (Exception $e) {
-            self::handleError();
-        }
-    }
-
-    public static function showFieldAnswers($parameters)
-    {
-        try {
-            $data = parent::getModelDataByIds($parameters);
-
-            $exercise = $data["exercise"];
-
-            $field = $data["field"];
-
-            $answers = Answers::findAnswersFromField($field);
-
-            $fulfillments = Fulfillments::findFulfillmentsFromAnswers($answers);
-
-            for ($i = 0; $i < count($answers); $i++) {
-                $answers[$i]["fulfillment"] = $fulfillments[$i];
-            }
-
-            include_once PAGE_DIR . "/AnswersField.php";
         } catch (Exception $e) {
             self::handleError();
         }

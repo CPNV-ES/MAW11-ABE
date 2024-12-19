@@ -5,7 +5,9 @@ $title = "ExerciseLooper";
 $style = '<link rel="stylesheet" href="/css/Home.css">';
 
 ob_start();
+
 ?>
+
 <header class="dashboard">
     <section class="container">
         <p><img src="/img/logo.png" /></p>
@@ -26,6 +28,7 @@ ob_start();
         </div>
     </section>
 </div>
+
 <?php
 
 $content = ob_get_clean();
