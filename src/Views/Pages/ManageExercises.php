@@ -5,6 +5,7 @@ $title = "ExerciseLooper";
 $style = '<link rel="stylesheet" href="/css/Manage.css">';
 
 ob_start();
+
 ?>
 
 <header class="heading results">
@@ -32,11 +33,15 @@ ob_start();
                             <td>
 
                                 <?php if ($buildingExercise["hasField"]): ?>
-                                    <a title="Be ready for answers" href="/exercises/<?= $buildingExercise["id"] ?>?status=answering"><i class="fa fa-comment"></i></a>
+                                    <a title="Be ready for answers"
+                                        href="/exercises/<?= $buildingExercise["id"] ?>?status=answering"><i
+                                            class="fa fa-comment"></i></a>
                                 <?php endif; ?>
 
-                                <a title="Manage fields" href="/exercises/<?= $buildingExercise["id"] ?>/fields"><i class="fa fa-edit"></i></a>
-                                <a href="/exercises/<?= $buildingExercise["id"]; ?>/delete" onclick="return confirm('Are you sure?');"><i class="fa fa-trash"></i></a>
+                                <a title="Manage fields" href="/exercises/<?= $buildingExercise["id"] ?>/fields"><i
+                                        class="fa fa-edit"></i></a>
+                                <a href="/exercises/<?= $buildingExercise["id"]; ?>/delete"
+                                    onclick="return confirm('Are you sure?');"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -59,8 +64,10 @@ ob_start();
                         <tr>
                             <td><?= htmlspecialchars($answeringExercise["title"], ENT_QUOTES, 'UTF-8') ?></td>
                             <td>
-                                <a title="Show results" href="/exercises/<?= $answeringExercise["id"] ?>/results"><i class="fa fa-chart-bar"></i></a>
-                                <a title="Close" href="/exercises/<?= $answeringExercise["id"]; ?>?status=closed"><i class="fa fa-minus-circle"></i></a>
+                                <a title="Show results" href="/exercises/<?= $answeringExercise["id"] ?>/results"><i
+                                        class="fa fa-chart-bar"></i></a>
+                                <a title="Close" href="/exercises/<?= $answeringExercise["id"]; ?>?status=closed"><i
+                                        class="fa fa-minus-circle"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -83,8 +90,10 @@ ob_start();
                         <tr>
                             <td><?= htmlspecialchars($closedExercise["title"], ENT_QUOTES, 'UTF-8') ?></td>
                             <td>
-                                <a title="Show results" href="/exercises/<?= $closedExercise["id"] ?>/results"><i class="fa fa-chart-bar"></i></a>
-                                <a href="/exercises/<?= $closedExercise["id"]; ?>/delete" onclick="return confirm('Are you sure?');"><i class="fa fa-trash"></i></a>
+                                <a title="Show results" href="/exercises/<?= $closedExercise["id"] ?>/results"><i
+                                        class="fa fa-chart-bar"></i></a>
+                                <a href="/exercises/<?= $closedExercise["id"]; ?>/delete"
+                                    onclick="return confirm('Are you sure?');"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

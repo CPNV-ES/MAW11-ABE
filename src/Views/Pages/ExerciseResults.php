@@ -4,15 +4,15 @@
 $title = "ExerciseLooper";
 $style = '<link rel="stylesheet" href="/css/Results.css">';
 
-$exercise = $data["exercise"];
-
 ob_start();
+
 ?>
 
 <header class="heading results">
     <section class="container">
         <a href="/"><img src="/img/logo.png" /></a>
-        <span class="exercise-label">Exercise: <a href="/exercises/<?= $exercise["id"]; ?>/fields"><?= htmlspecialchars($exercise["title"], ENT_QUOTES, 'UTF-8') ?></a></span>
+        <span class="exercise-label">Exercise: <a
+                href="/exercises/<?= $exercise["id"]; ?>/fields"><?= htmlspecialchars($exercise["title"], ENT_QUOTES, 'UTF-8') ?></a></span>
     </section>
 </header>
 
@@ -22,7 +22,9 @@ ob_start();
             <tr>
                 <th>Take</th>
                 <?php foreach ($fields as $field): ?>
-                    <th><a href="/exercises/<?= $exercise["id"]; ?>/results/<?= $field["id"]; ?>"><?= htmlspecialchars($field["label"], ENT_QUOTES, 'UTF-8') ?></a></th>
+                    <th><a
+                            href="/exercises/<?= $exercise["id"]; ?>/results/<?= $field["id"]; ?>"><?= htmlspecialchars($field["label"], ENT_QUOTES, 'UTF-8') ?></a>
+                    </th>
                 <?php endforeach; ?>
             </tr>
         </thead>
@@ -30,7 +32,8 @@ ob_start();
         <tbody>
             <?php foreach ($fulfillments as $fulfillment): ?>
                 <tr>
-                    <td><a href="/exercises/<?= $exercise["id"]; ?>/fulfillments/<?= $fulfillment["id"]; ?>"><?= htmlspecialchars($fulfillment["fulfillment"], ENT_QUOTES, 'UTF-8') ?> UTC</a></td>
+                    <td><a href="/exercises/<?= $exercise["id"]; ?>/fulfillments/<?= $fulfillment["id"]; ?>"><?= htmlspecialchars($fulfillment["fulfillment"], ENT_QUOTES, 'UTF-8') ?>
+                            UTC</a></td>
                     <?php foreach ($fulfillment['answers'] as $answer): ?>
                         <td class="answer"><i class="fa <?= $answer["class"] ?>"></i></td>
                     <?php endforeach; ?>

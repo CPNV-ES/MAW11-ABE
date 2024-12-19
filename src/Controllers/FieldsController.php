@@ -26,6 +26,8 @@ class FieldsController extends Controller
         try {
             $data = parent::getModelDataByIds($parameters);
             $fields = Fields::getFieldsFromExerciseId($data["exercise"]["id"]);
+            $exercise = $data["exercise"];
+
             include_once PAGE_DIR . "/ManageExerciseFields.php";
         } catch (Exception $e) {
             self::handleError();

@@ -5,12 +5,14 @@ $title = "ExerciseLooper";
 $style = '<link rel="stylesheet" href="/css/Fulfillment.css">';
 
 ob_start();
+
 ?>
 
 <header class="heading answering">
     <section class="container">
         <a href="/"><img src="/img/logo.png" /></a>
-        <span class="exercise-label">Exercise: <span class="exercise-title"><?= htmlspecialchars($exercise["title"], ENT_QUOTES, 'UTF-8') ?></span></span>
+        <span class="exercise-label">Exercise: <span
+                class="exercise-title"><?= htmlspecialchars($exercise["title"], ENT_QUOTES, 'UTF-8') ?></span></span>
     </section>
 </header>
 
@@ -30,14 +32,15 @@ ob_start();
                 <tr>
                     <td><?= $fulfillment["fulfillment"] ?> UTC</td>
                     <td><a href="/exercises/<?= $exercise["id"] ?>/fulfillments/<?= $fulfillment["id"] ?>">Show</a></td>
-                    <td><a href="/exercises/<?= $exercise["id"] ?>/fulfillments/<?= $fulfillment["id"] ?>/edit">Edit</a></td>
-                    <td><a href="/exercises/<?= $exercise["id"] ?>/fulfillments/<?= $fulfillment["id"] ?>/delete" onclick="return confirm('Are you sure?');">Destroy</a></td>
+                    <td><a href="/exercises/<?= $exercise["id"] ?>/fulfillments/<?= $fulfillment["id"] ?>/edit">Edit</a>
+                    </td>
+                    <td><a href="/exercises/<?= $exercise["id"] ?>/fulfillments/<?= $fulfillment["id"] ?>/delete"
+                            onclick="return confirm('Are you sure?');">Destroy</a></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
 </main>
-
 
 <?php
 
