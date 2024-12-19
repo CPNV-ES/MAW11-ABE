@@ -58,7 +58,6 @@ class FulfillmentsController extends Controller
                 return $field;
             }, $fields);
 
-
             include_once PAGE_DIR . "/EditFulfillment.php";
         } catch (Exception $e) {
             self::handleError($e->getMessage());
