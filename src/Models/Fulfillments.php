@@ -6,18 +6,21 @@ class Fulfillments extends Model
 {
     public static function createFulfillment($exerciseId)
     {
-        return parent::insert(["fulfillment", "exercise_id"], ["fulfillment" => date('Y-m-d H:i:s'), "exercise_id" => $exerciseId]);
+        return parent::insert(
+            ["fulfillment", "exercise_id"],
+            ["fulfillment" => date('Y-m-d H:i:s'), "exercise_id" => $exerciseId]
+        );
     }
 
     public static function getFulfillmentsWithAnswers($column, $value)
     {
-        $fulfillments = Fulfillments::findBy($column, $value);
+        $fulfillments = parent::findBy($column, $value);
 
         $newFulfillments = [];
 
         foreach ($fulfillments as $fulfillment) {
-            $fulfillment["answers"] = Answers::findAnswersFromFulfillment($fulfillment);
-
+            $answers = Answers::findAnswersFromFulfillment($fulfillment);
+            $fulfillment["answers"] = $answers;
             $newFulfillments[] = $fulfillment;
         }
 
@@ -29,7 +32,11 @@ class Fulfillments extends Model
         $fulfillments = [];
 
         foreach ($answers as $answer) {
-            $fulfillments[] = Fulfillments::findBy("id", $answer["fulfillment_id"])[0];
+            $fulfillment = parent::findBy("id", $answer["fulfillment_id"])[0];
+
+            if (!empty($fulfillment)) {
+                $fulfillments[] = $fulfillment[0];
+            }
         }
 
         return $fulfillments;
