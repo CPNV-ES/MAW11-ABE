@@ -58,6 +58,24 @@ cp .env.example .env
 php -S localhost:8888 -t public
 ```
 
+## Testing
+
+To ensure the quality and functionality of the application, we use PHPUnit for testing. The tests are located in the `tests` directory.
+
+### Running Tests
+
+1. Create a .env_test file
+
+```bash
+cp .env.example .env_test
+```
+
+2. Run the test using the following command
+
+```bash
+.\vendor\bin\phpunit .\tests\
+```
+
 ## Directory structure
 
 The project follows the MVC (Model-View-Controller) structure:
