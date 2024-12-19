@@ -45,20 +45,6 @@ class FulfillmentsController extends Controller
         }
     }
 
-    public static function showExerciseResults($parameters)
-    {
-        try {
-            $data = parent::getModelDataByIds($parameters);
-            $exercise = Exercises::findBy("id", $data["exercise"]["id"])[0];
-            $fields = Fields::getFields($data["exercise"]["id"]);
-            $fulfillments = Fulfillments::getFulfillmentsWithAnswers("exercise_id", $exercise["id"]);
-
-            include_once PAGE_DIR . "/ExerciseResults.php";
-        } catch (Exception $e) {
-            self::handleError();
-        }
-    }
-
     public static function showEditFulfillment($parameters)
     {
         try {

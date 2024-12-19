@@ -53,24 +53,4 @@ class FieldsController extends Controller
             self::handleError();
         }
     }
-
-    public static function showFieldAnswers($parameters)
-    {
-        try {
-            $data = parent::getModelDataByIds($parameters);
-            $exercise = $data["exercise"];
-            $field = $data["field"];
-
-            $answers = Answers::findAnswersFromField($field);
-            $fulfillments = Fulfillments::findFulfillmentsFromAnswers($answers);
-
-            foreach ($answers as $i => $answer) {
-                $answers[$i]['fulfillment'] = $fulfillments[$i];
-            }
-
-            include_once PAGE_DIR . "/AnswersField.php";
-        } catch (Exception $e) {
-            self::handleError();
-        }
-    }
 }

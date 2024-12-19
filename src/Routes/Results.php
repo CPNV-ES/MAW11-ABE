@@ -1,9 +1,8 @@
 <?php
 
 use App\Core\Route;
-use App\Controllers\FieldsController;
-use App\Controllers\FulfillmentsController;
+use App\Controllers\ResultsController;
 
 // GET method
-$router->addRoute(new Route('GET', '/exercises/{exerciseId}/results', [FulfillmentsController::class, 'showExerciseResults']));
-$router->addRoute(new Route('GET', '/exercises/{exerciseId}/results/{fieldId}', [FieldsController::class, 'showFieldAnswers']));
+$router->addRoute(new Route('GET', '/exercises/{exerciseId}/results', [ResultsController::class, 'showExerciseResults']));
+$router->addRoute(new Route('GET', '/exercises/{exerciseId}/results/{fieldId}', [ResultsController::class, 'showFieldAnswers']));
