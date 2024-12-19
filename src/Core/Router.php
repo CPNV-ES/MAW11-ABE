@@ -23,60 +23,70 @@ class Router
         $routeRequest = $this->routeRequest;
 
         foreach ($this->routes as $route) {
+            if ($this->matchMethodAndPath($route)) {
+                return;
+            }
 
-            if ($route->matchesMethod($routeRequest[1])) {
+            if ($this->matchDynamicRoute($route)) {
+                return;
+            }
+        }
 
-                if ($route->matchesPath($routeRequest[0])) {
+        $this->handleRouteNotFound();
+    }
 
-                    $handler = new Handler($route->getHandler());
+    private function matchMethodAndPath($route)
+    {
+        if ($route->matchesMethod($this->routeRequest[1]) && $route->matchesPath($this->routeRequest[0])) {
+            $this->handleRoute($route);
+            return true;
+        }
 
-                    $handler->handle();
+        return false;
+    }
 
-                    return;
-                }
+    private function matchDynamicRoute($route)
+    {
+        $routeArray = array_filter(explode('/', $route->getPath()));
+        $requestRouteArray = array_filter(explode('/', $this->routeRequest[0]));
 
-                $routeArray = explode("/", $route->getPath());
-                $routeArray = array_filter($routeArray);
+        if (count($requestRouteArray) === count($routeArray)) {
+            $parameters = $this->extractParametersFromRoute($routeArray, $requestRouteArray);
+            if ($parameters !== null) {
+                $this->handleRoute($route, $parameters);
+                return true;
+            }
+        }
 
-                $requestRouteArray = explode("/", $routeRequest[0]);
-                $requestRouteArray = array_filter($requestRouteArray);
+        return false;
+    }
 
-                if (count($requestRouteArray) == count($routeArray)) {
+    private function extractParametersFromRoute($routeArray, $requestRouteArray)
+    {
+        $parameters = [];
 
-                    $parameters = [];
-                    $pathRequestIsValid = false;
-
-                    foreach ($requestRouteArray as $key => $pathSegment) {
-
-                        if ($pathSegment != $routeArray[$key]) {
-
-                            if (preg_match('/{(.*?)}/', $routeArray[$key], $matches)) {
-
-                                $parameters[$matches[1]] = $pathSegment;
-                                $pathRequestIsValid = true;
-
-                            } else {
-
-                                $pathRequestIsValid = false;
-                                break;
-
-                            }
-                        }
-                    }
-
-                    if ($pathRequestIsValid) {
-
-                        $handler = new Handler($route->getHandler());
-
-                        $handler->handle($parameters);
-
-                        return;
-                    }
+        foreach ($requestRouteArray as $key => $pathSegment) {
+            if ($pathSegment !== $routeArray[$key]) {
+                if (preg_match('/{(.*?)}/', $routeArray[$key], $matches)) {
+                    $parameters[$matches[1]] = $pathSegment;
+                } else {
+                    return null;
                 }
             }
         }
 
-        error_log('Route not found');
+        return $parameters;
+    }
+
+    private function handleRoute($route, $parameters = [])
+    {
+        $handler = new Handler($route->getHandler());
+        $handler->handle($parameters);
+    }
+
+    private function handleRouteNotFound()
+    {
+        error_log('Route not found: ' . implode('/', $this->routeRequest));
 
         include_once ERROR_DIR . "/error404.php";
     }
