@@ -7,6 +7,7 @@ require_once BASE_DIR . '/vendor/autoload.php';
 use App\Models\Database;
 use App\Models\Exercises;
 use App\Controllers\ExercisesController;
+use App\Controllers\FieldsController;
 use PHPUnit\Framework\TestCase;
 
 // Load test environment variable
@@ -16,7 +17,8 @@ $dotenv->load();
 final class ManageExerciseTest extends TestCase
 {
     private $db;
-    private $controller;
+    private $exerciseController;
+    private $fieldController;
     private $exerciseData;
 
     protected function setUp(): void
@@ -34,8 +36,11 @@ final class ManageExerciseTest extends TestCase
         $this->db->query("TRUNCATE TABLE exercises");
         $this->db->query("SET FOREIGN_KEY_CHECKS=1");
 
-        $this->controller = new ExercisesController();
+        $this->exerciseController = new ExercisesController();
         $this->exerciseData = $this->createExercise();
+
+        $this->fieldController = new FieldsController();
+        $this->fieldData = $this->createField();
     }
 
     /**
@@ -50,7 +55,7 @@ final class ManageExerciseTest extends TestCase
         $exercise = Exercises::findBy("id", $exerciseId)[0];
         $this->assertEquals($this->exerciseData['exercise_status'], $exercise['exercise_status'], "The exercise status should be 'building' before updating.");
 
-        $this->controller->updateExerciseStatus($parameters);
+        $this->exerciseController->updateExerciseStatus($parameters);
 
         $updatedExercise = Exercises::findBy("id", $exerciseId)[0];
         $this->assertEquals('answering', $updatedExercise['exercise_status'], "The exercise status should be updated to 'answering'.");
@@ -74,8 +79,24 @@ final class ManageExerciseTest extends TestCase
 
         $_POST = $exerciseData; // controller->create(); will capture it
 
-        $this->controller->createExercise();
+        $this->exerciseController->createExercise();
 
         return $exerciseData;
+    }
+
+    private function createField()
+    {
+        $fieldData = [
+            'field' => [
+                'label' => 'New Test Field',
+                'type' => 'single_line'
+            ]
+        ];
+
+        $_POST = $fieldData; // controller->create(); will capture it
+
+        $this->fieldController->createField(["exerciseId" => 1]);
+
+        return $fieldData;
     }
 }

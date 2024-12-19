@@ -32,8 +32,7 @@ ob_start();
                         value="<?= htmlspecialchars($field["answer"]["contents"], ENT_QUOTES, 'UTF-8') ?>" />
                 <?php else: ?>
                     <textarea name="fulfillment[answers][<?= $field["answer"]["id"] ?>][value]"
-                        id="fulfillment_answers_<?= $field["answer"]["id"] ?>_value"
-                        value="<?= htmlspecialchars($field["answer"]["contents"], ENT_QUOTES, 'UTF-8') ?>"></textarea>
+                        id="fulfillment_answers_<?= $field["answer"]["id"] ?>_value"><?= htmlspecialchars($field["answer"]["contents"], ENT_QUOTES, 'UTF-8') ?></textarea>
                 <?php endif; ?>
             </div>
         <?php endforeach; ?>

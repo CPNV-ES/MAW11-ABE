@@ -20,7 +20,7 @@ class ResultsController extends Controller
 
             include_once PAGE_DIR . "/ExerciseResults.php";
         } catch (Exception $e) {
-            self::handleError();
+            self::handleError($e->getMessage());
         }
     }
 
@@ -40,7 +40,7 @@ class ResultsController extends Controller
 
             include_once PAGE_DIR . "/AnswersField.php";
         } catch (Exception $e) {
-            self::handleError();
+            self::handleError($e->getMessage());
         }
     }
 }

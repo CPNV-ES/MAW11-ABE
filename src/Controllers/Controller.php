@@ -39,6 +39,8 @@ class Controller
 
     protected static function handleError($error = null, $errorPage = "/error500.php")
     {
+        error_log($error);
+
         include_once ERROR_DIR . $errorPage;
 
         throw new Exception($error);
