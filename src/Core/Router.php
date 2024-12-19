@@ -20,24 +20,28 @@ class Router
 
     public function matchRoute()
     {
-        $routeRequest = $this->routeRequest;
+        $requestMethod = $this->routeRequest[1];
 
         foreach ($this->routes as $route) {
-            if ($this->matchMethodAndPath($route)) {
-                return;
-            }
+            if ($route->matchesMethod($requestMethod)) {
+                if ($this->matchStaticPath($route)) {
+                    return;
+                }
 
-            if ($this->matchDynamicRoute($route)) {
-                return;
+                if ($this->matchDynamicRoute($route)) {
+                    return;
+                }
             }
         }
 
         $this->handleRouteNotFound();
     }
 
-    private function matchMethodAndPath($route)
+    private function matchStaticPath($route)
     {
-        if ($route->matchesMethod($this->routeRequest[1]) && $route->matchesPath($this->routeRequest[0])) {
+        $requestPath = $this->routeRequest[0];
+
+        if ($route->matchesPath($requestPath)) {
             $this->handleRoute($route);
             return true;
         }
@@ -47,8 +51,9 @@ class Router
 
     private function matchDynamicRoute($route)
     {
+        $requestPath = $this->routeRequest[0];
         $routeArray = array_filter(explode('/', $route->getPath()));
-        $requestRouteArray = array_filter(explode('/', $this->routeRequest[0]));
+        $requestRouteArray = array_filter(explode('/', $requestPath));
 
         if (count($requestRouteArray) === count($routeArray)) {
             $parameters = $this->extractParametersFromRoute($routeArray, $requestRouteArray);
