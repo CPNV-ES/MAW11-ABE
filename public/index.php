@@ -2,11 +2,12 @@
 
 session_start();
 
-define('BASE_DIR', dirname(__FILE__) . '/..');
+use App\Core\Router;
+use Dotenv\Dotenv;
 
-define('PUBLIC_DIR', dirname(__FILE__));
+define('BASE_DIR', dirname(__DIR__));
+define('PUBLIC_DIR', __DIR__);
 define('IMG_DIR', PUBLIC_DIR . '/img');
-
 define('SOURCE_DIR', BASE_DIR . '/src');
 define('CONTROLLER_DIR', SOURCE_DIR . '/Controllers');
 define('CORE_DIR', SOURCE_DIR . '/Core');
@@ -18,26 +19,19 @@ define('PAGE_DIR', VIEW_DIR . '/Pages');
 
 require_once BASE_DIR . '/vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(BASE_DIR);
+$dotenv = Dotenv::createImmutable(BASE_DIR);
 $dotenv->load();
 
-use App\Core\Router;
+$route = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?: '/';
+$method = $_SERVER['REQUEST_METHOD'];
 
-$route = $_SERVER['REQUEST_URI'];
-$method = $_SERVER["REQUEST_METHOD"];
-
-if (!empty($_SERVER["QUERY_STRING"])) {
-    $route = substr($route, 0, strlen($_SERVER["REQUEST_URI"]) - strlen($_SERVER["QUERY_STRING"]) - 1);
-}
-
-include_once CORE_DIR . '/Router.php';
+require_once CORE_DIR . '/Router.php';
 
 $router = new Router([$route, $method]);
 
-include_once ROUTES_DIR . '/Exercise.php';
-include_once ROUTES_DIR . '/Field.php';
-include_once ROUTES_DIR . '/Fulfillment.php';
-include_once ROUTES_DIR . '/Home.php';
-include_once ROUTES_DIR . '/Results.php';
+$routes = ['Exercise', 'Field', 'Fulfillment', 'Home', 'Results'];
+foreach ($routes as $routeFile) {
+    require_once ROUTES_DIR . "/{$routeFile}.php";
+}
 
 $router->matchRoute();
