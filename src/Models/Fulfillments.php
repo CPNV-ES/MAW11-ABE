@@ -35,7 +35,7 @@ class Fulfillments extends Model
             $fulfillment = parent::findBy("id", $answer["fulfillment_id"])[0];
 
             if (!empty($fulfillment)) {
-                $fulfillments[] = $fulfillment[0];
+                $fulfillments[] = $fulfillment;
             }
         }
 
