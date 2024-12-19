@@ -71,7 +71,7 @@ class ExercisesController extends Controller
             Exercises::deleteExerciseFromId($data["exercise"]["id"]);
             header("Location: /exercises");
         } catch (Exception $e) {
-            self::handleError($e);
+            self::handleError();
         }
     }
 }
