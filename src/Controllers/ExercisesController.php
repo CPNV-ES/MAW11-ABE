@@ -16,7 +16,7 @@ class ExercisesController extends Controller
             $exercise = Exercises::addExercise($exerciseTitle)[0];
             header("Location: /exercises/" . $exercise['id'] . "/fields");
         } catch (Exception $e) {
-            self::handleError();
+            self::handleError($e->getMessage());
         }
     }
 
@@ -26,7 +26,7 @@ class ExercisesController extends Controller
             $exercises = Exercises::findAllByStatus("answering");
             include_once PAGE_DIR . "/TakeExercises.php";
         } catch (Exception $e) {
-            self::handleError();
+            self::handleError($e->getMessage());
         }
     }
 
@@ -41,7 +41,7 @@ class ExercisesController extends Controller
 
             include_once PAGE_DIR . "/ManageExercises.php";
         } catch (Exception $e) {
-            self::handleError();
+            self::handleError($e->getMessage());
         }
     }
 
@@ -60,7 +60,7 @@ class ExercisesController extends Controller
             Exercises::updateStatus($exercise["id"], $_GET["status"]);
             header("Location: /exercises");
         } catch (Exception $e) {
-            self::handleError();
+            self::handleError($e->getMessage());
         }
     }
 
@@ -71,7 +71,7 @@ class ExercisesController extends Controller
             Exercises::deleteExerciseFromId($data["exercise"]["id"]);
             header("Location: /exercises");
         } catch (Exception $e) {
-            self::handleError();
+            self::handleError($e->getMessage());
         }
     }
 }

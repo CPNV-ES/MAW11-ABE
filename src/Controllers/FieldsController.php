@@ -17,7 +17,7 @@ class FieldsController extends Controller
             Fields::addField($_POST["field"]["label"], $_POST["field"]["type"], $exerciseId);
             header("Location: /exercises/" . $exerciseId . "/fields");
         } catch (Exception $e) {
-            self::handleError();
+            self::handleError($e->getMessage());
         }
     }
 
@@ -30,7 +30,7 @@ class FieldsController extends Controller
 
             include_once PAGE_DIR . "/ManageExerciseFields.php";
         } catch (Exception $e) {
-            self::handleError();
+            self::handleError($e->getMessage());
         }
     }
 
@@ -41,7 +41,7 @@ class FieldsController extends Controller
             Fields::deleteFieldFromId($data["field"]["id"]);
             header("Location: /exercises/" . $data["exercise"]["id"] . "/fields/");
         } catch (Exception $e) {
-            self::handleError();
+            self::handleError($e->getMessage());
         }
     }
 
@@ -52,7 +52,7 @@ class FieldsController extends Controller
             Fields::updateField($data["field"]["id"], $_POST["field"]);
             header("Location: /exercises/" . $data["exercise"]["id"] . "/fields");
         } catch (Exception $e) {
-            self::handleError();
+            self::handleError($e->getMessage());
         }
     }
 }

@@ -19,7 +19,7 @@ class FulfillmentsController extends Controller
 
             include_once PAGE_DIR . "/AnswerExercise.php";
         } catch (Exception $e) {
-            self::handleError();
+            self::handleError($e->getMessage());
         }
     }
 
@@ -41,7 +41,7 @@ class FulfillmentsController extends Controller
 
             header("Location: /exercises/" . $exerciseId . "/fulfillments/" . $fulfillmentId . "/edit");
         } catch (Exception $e) {
-            self::handleError();
+            self::handleError($e->getMessage());
         }
     }
 
@@ -59,7 +59,7 @@ class FulfillmentsController extends Controller
 
             include_once PAGE_DIR . "/EditFulfillment.php";
         } catch (Exception $e) {
-            self::handleError();
+            self::handleError($e->getMessage());
         }
     }
 
@@ -77,7 +77,7 @@ class FulfillmentsController extends Controller
 
             include_once PAGE_DIR . "/AnswersFulfillment.php";
         } catch (Exception $e) {
-            self::handleError();
+            self::handleError($e->getMessage());
         }
     }
 
@@ -90,7 +90,7 @@ class FulfillmentsController extends Controller
 
             include_once PAGE_DIR . "/ExerciseFulfillments.php";
         } catch (Exception $e) {
-            self::handleError();
+            self::handleError($e->getMessage());
         }
     }
 
@@ -107,7 +107,7 @@ class FulfillmentsController extends Controller
 
             header("Location: /exercises/" . $exercise["id"] . "/fulfillments/" . $fulfillment["id"] . "/edit");
         } catch (Exception $e) {
-            self::handleError();
+            self::handleError($e->getMessage());
         }
     }
 
@@ -121,7 +121,7 @@ class FulfillmentsController extends Controller
 
             header("Location: /");
         } catch (Exception $e) {
-            self::handleError();
+            self::handleError($e->getMessage());
         }
     }
 }
