@@ -133,6 +133,7 @@ li {
 }
 
 input,
+textarea,
 select {
     font-family: inherit;
     font-size: 100%;

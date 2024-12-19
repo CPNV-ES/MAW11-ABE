@@ -19,7 +19,7 @@ class FulfillmentsController extends Controller
 
             include_once PAGE_DIR . "/AnswerExercise.php";
         } catch (Exception $e) {
-            self::handleError();
+            self::handleError($e->getMessage());
         }
     }
 
@@ -41,7 +41,7 @@ class FulfillmentsController extends Controller
 
             header("Location: /exercises/" . $exerciseId . "/fulfillments/" . $fulfillmentId . "/edit");
         } catch (Exception $e) {
-            self::handleError();
+            self::handleError($e->getMessage());
         }
     }
 
@@ -53,13 +53,14 @@ class FulfillmentsController extends Controller
             $fields = Fields::getFields($exercise["id"]);
             $fulfillment = $data["fulfillment"];
 
-            foreach ($fields as &$field) {
-                $field['answer'] = Answers::findAnswersFromFulfillmentField($fulfillment, $field);
-            }
+            $fields = array_map(function ($field) use ($fulfillment) {
+                $field["answer"] = Answers::findAnswersFromFulfillmentField($fulfillment, $field);
+                return $field;
+            }, $fields);
 
             include_once PAGE_DIR . "/EditFulfillment.php";
         } catch (Exception $e) {
-            self::handleError();
+            self::handleError($e->getMessage());
         }
     }
 
@@ -77,7 +78,7 @@ class FulfillmentsController extends Controller
 
             include_once PAGE_DIR . "/AnswersFulfillment.php";
         } catch (Exception $e) {
-            self::handleError();
+            self::handleError($e->getMessage());
         }
     }
 
@@ -90,7 +91,7 @@ class FulfillmentsController extends Controller
 
             include_once PAGE_DIR . "/ExerciseFulfillments.php";
         } catch (Exception $e) {
-            self::handleError();
+            self::handleError($e->getMessage());
         }
     }
 
@@ -107,7 +108,7 @@ class FulfillmentsController extends Controller
 
             header("Location: /exercises/" . $exercise["id"] . "/fulfillments/" . $fulfillment["id"] . "/edit");
         } catch (Exception $e) {
-            self::handleError();
+            self::handleError($e->getMessage());
         }
     }
 
@@ -121,7 +122,7 @@ class FulfillmentsController extends Controller
 
             header("Location: /");
         } catch (Exception $e) {
-            self::handleError();
+            self::handleError($e->getMessage());
         }
     }
 }
