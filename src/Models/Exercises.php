@@ -6,9 +6,10 @@ class Exercises extends Model
 {
     public static function addExercise($title, $exerciseStatus = "building")
     {
-        $exercise = parent::insert(["title", "exercise_status"], ["title" => $title, "exercise_status" => $exerciseStatus]);
-
-        return $exercise;
+        return parent::insert(
+            ["title", "exercise_status"],
+            ["title" => $title, "exercise_status" => $exerciseStatus]
+        );
     }
 
     public static function findAllByStatus($status)
@@ -26,7 +27,11 @@ class Exercises extends Model
 
     public static function updateStatus($id, $exerciseStatus)
     {
-        parent::update(["exercise_status"], "id", ["exercise_status" => $exerciseStatus, "id" => $id]);
+        parent::update(
+            ["exercise_status"],
+            "id",
+            ["exercise_status" => $exerciseStatus, "id" => $id]
+        );
     }
 
     public static function deleteExerciseFromId($id)

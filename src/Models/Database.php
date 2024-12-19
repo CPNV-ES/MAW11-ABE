@@ -24,10 +24,9 @@ class Database
         $this->password = $password;
 
         $dsn = 'mysql:dbname=' . $database . ';host=' . $hostname;
+
         try {
             $this->pdo = new PDO($dsn, $username, $password, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
-
-            // Set Error Mode to Exception
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             throw new Exception("Could not connect to the database: " . $e->getMessage(), 500);
@@ -57,7 +56,7 @@ class Database
      *
      * @param  string $sql    The SQL query to execute
      * @param  array  $params The parameters of the SQL query
-     * @return array The results of the query
+     * @return array  The results of the query
      * @throws Exception If the query fails.
      */
     public function query($sql, $params = [])
@@ -65,19 +64,29 @@ class Database
         try {
             $statement = $this->pdo->prepare($sql);
             $statement->execute($params);
-
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             throw new Exception("Query failed: " . $e->getMessage(), 500);
         }
     }
 
+    /**
+     * Retrieves the last inserted row for a given table.
+     *
+     * @param string $tableName The name of the table.
+     * @return array The last inserted row.
+     * @throws Exception If the query fails.
+     */
     public function getLastInsertedRow($tableName)
     {
         $sql = "SELECT * FROM $tableName WHERE id = :id";
 
         try {
             $lastInsertedId = $this->pdo->lastInsertId();
+
+            if (!$lastInsertedId) {
+                throw new Exception("No last insert ID available.");
+            }
 
             return $this->query($sql, ["id" => $lastInsertedId]);
         } catch (PDOException $e) {
