@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Models\Answers;
 use App\Models\Fields;
-use App\Models\Exercises;
 use App\Models\Fulfillments;
 use Exception;
 
@@ -14,12 +13,24 @@ class FulfillmentsController extends Controller
     {
         try {
             $data = parent::getModelDataByIds($parameters);
-            $exercise = Exercises::findBy("id", $data["exercise"]["id"])[0];
+
+            $exercise = $data["exercise"];
+
+            if ($exercise["exercise_status"] != "answering") {
+                throw new Exception("Exercise not accessible", 403);
+            }
+
             $fields = Fields::getFields($data["exercise"]["id"]);
+
+            if (empty($fields)) {
+                throw new Exception("Fields data missing for the exercise. Possible data corruption or server misconfiguration.");
+            }
 
             include_once PAGE_DIR . "/AnswerExercise.php";
         } catch (Exception $e) {
-            self::handleError($e->getMessage());
+            $errorCode = $e->getCode() != 0 ? $e->getCode() : 500;
+
+            self::handleError($e->getMessage(), $errorCode);
         }
     }
 
@@ -50,8 +61,12 @@ class FulfillmentsController extends Controller
         try {
             $data = parent::getModelDataByIds($parameters);
             $exercise = $data["exercise"];
-            $fields = Fields::getFields($exercise["id"]);
             $fulfillment = $data["fulfillment"];
+            $fields = Fields::getFields($exercise["id"]);
+
+            if (empty($fields)) {
+                throw new Exception("Fields data missing for the exercise. Possible data corruption or server misconfiguration.");
+            }
 
             $fields = array_map(function ($field) use ($fulfillment) {
                 $field["answer"] = Answers::findAnswersFromFulfillmentField($fulfillment, $field);
@@ -69,8 +84,12 @@ class FulfillmentsController extends Controller
         try {
             $data = parent::getModelDataByIds($parameters);
             $exercise = $data["exercise"];
-            $fields = Fields::getFields($exercise["id"]);
             $fulfillment = $data["fulfillment"];
+            $fields = Fields::getFields($exercise["id"]);
+
+            if (empty($fields)) {
+                throw new Exception("Fields data missing for the exercise. Possible data corruption or server misconfiguration.");
+            }
 
             $fields = array_map(function ($field) use ($fulfillment) {
                 $field["answer"] = Answers::findAnswersFromFulfillmentField($fulfillment, $field);

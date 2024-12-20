@@ -3,8 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\Fields;
-use App\Models\Answers;
-use App\Models\Fulfillments;
 use Exception;
 
 class FieldsController extends Controller
