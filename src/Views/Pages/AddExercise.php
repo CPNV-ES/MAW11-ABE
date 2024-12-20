@@ -3,10 +3,10 @@
 //initialize page variables
 $title = "ExerciseLooper";
 $style = '<link rel="stylesheet" href="/css/Create.css">';
+
 ob_start();
 
 ?>
-
 
 <header class="heading managing">
     <section class="container">

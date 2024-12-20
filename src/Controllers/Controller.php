@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Models\Exercises;
 use App\Models\Fields;
+use App\Models\Fulfillments;
+use Exception;
 
 class Controller
 {
@@ -26,14 +28,21 @@ class Controller
                 if (str_contains($key, "field")) {
                     $data["field"] = Fields::findBy("id", $id)[0];
                 }
+                if (str_contains($key, "fulfillment")) {
+                    $data["fulfillment"] = Fulfillments::findBy("id", $id)[0];
+                }
             }
         }
 
         return $data;
     }
 
-    protected static function handleError($errorPage = '/error500.php')
+    protected static function handleError($error = null, $errorPage = "/error500.php")
     {
+        error_log($error);
+
         include_once ERROR_DIR . $errorPage;
+
+        throw new Exception($error);
     }
 }

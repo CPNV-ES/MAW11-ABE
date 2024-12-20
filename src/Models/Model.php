@@ -8,31 +8,13 @@ use Exception;
 
 class Model
 {
-    public static $db;
-
-    public function __construct($attributes = [])
-    {
-        foreach ($attributes as $name => $value) {
-            $this->$name = $value;
-        }
-    }
-
-    public static function findAll()
-    {
-        $tableName = static::tableName();
-        $sql = "SELECT * FROM $tableName";
-
-        try {
-            return static::getDatabaseInstance()->query($sql);
-        } catch (Exception $e) {
-            throw new Exception("Error caught: " . $e->getMessage());
-        }
-    }
+    private static $db;
 
     public static function findBy($column, $value)
     {
         $tableName = static::tableName();
         $sql = "SELECT * FROM $tableName WHERE $column = :value";
+
         try {
             return static::getDatabaseInstance()->query($sql, [':value' => $value]);
         } catch (Exception $e) {
@@ -43,7 +25,6 @@ class Model
     protected static function insert($columnNames, $SQLParameters)
     {
         $tableName = static::tableName();
-
         $sql = "INSERT INTO $tableName (" . join(',', $columnNames) . ") VALUES (" . join(',', array_map(function ($item) {
             return ':' . $item;
         }, $columnNames)) . ")";
@@ -60,7 +41,6 @@ class Model
     protected static function update($columnNames, $columnCondition, $SQLParameters)
     {
         $tableName = static::tableName();
-
         $sql = "UPDATE $tableName SET " . join(',', array_map(function ($value) {
             return $value . " = :" . $value;
         }, $columnNames)) . " WHERE " . $columnCondition . " = :" . $columnCondition;
@@ -84,7 +64,7 @@ class Model
         }
     }
 
-    protected static function tableName()
+    public static function tableName()
     {
         $class_name = strtolower(get_called_class());
         preg_match('/(\\\\)?(\\w+?)$/', $class_name, $matches);
@@ -93,8 +73,15 @@ class Model
 
     protected static function getDatabaseInstance()
     {
-        static::$db = Database::getInstance($_ENV["DATABASE_HOST"], $_ENV["DATABASE_NAME"], $_ENV["DATABASE_USERNAME"], $_ENV["DATABASE_PASSWORD"]);
-
+        if (static::$db === null) {
+            static::$db = Database::getInstance(
+                $_ENV["DATABASE_HOST"],
+                $_ENV["DATABASE_NAME"],
+                $_ENV["DATABASE_USERNAME"],
+                $_ENV["DATABASE_PASSWORD"]
+            );
+        }
+        
         return static::$db;
     }
 }

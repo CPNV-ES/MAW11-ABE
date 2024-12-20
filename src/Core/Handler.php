@@ -18,19 +18,19 @@ class Handler
 
     public function handle($args = [])
     {
-        if (class_exists($this->controller)) {
-            $controllerInstance = new $this->controller;
+        if (!class_exists($this->controller)) {
+            return;
+        }
 
-            if ($this->controller == Controller::class) {
-                if (file_exists(PAGE_DIR . $this->function)) {
-                    call_user_func([$this->controller, "show"], [$this->function, $args]);
-                    return;
-                }
-            }
+        $controllerInstance = new $this->controller;
 
-            if (method_exists($controllerInstance, $this->function)) {
-                call_user_func([$controllerInstance, $this->function], $args);
-            }
+        if ($this->controller == Controller::class && file_exists(PAGE_DIR . $this->function)) {
+            call_user_func([$this->controller, "show"], [$this->function, $args]);
+            return;
+        }
+
+        if (method_exists($controllerInstance, $this->function)) {
+            call_user_func([$controllerInstance, $this->function], $args);
         }
     }
 }
