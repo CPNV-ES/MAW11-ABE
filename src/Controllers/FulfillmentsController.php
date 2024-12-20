@@ -72,9 +72,10 @@ class FulfillmentsController extends Controller
             $fields = Fields::getFields($exercise["id"]);
             $fulfillment = $data["fulfillment"];
 
-            foreach ($fields as &$field) {
-                $field['answer'] = Answers::findAnswersFromFulfillmentField($fulfillment, $field);
-            }
+            $fields = array_map(function ($field) use ($fulfillment) {
+                $field["answer"] = Answers::findAnswersFromFulfillmentField($fulfillment, $field);
+                return $field;
+            }, $fields);
 
             include_once PAGE_DIR . "/AnswersFulfillment.php";
         } catch (Exception $e) {
