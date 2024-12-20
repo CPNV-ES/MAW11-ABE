@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Models\Fields;
 use App\Models\Answers;
-use App\Models\Exercises;
 use App\Models\Fulfillments;
 use Exception;
 
@@ -14,8 +13,8 @@ class ResultsController extends Controller
     {
         try {
             $data = parent::getModelDataByIds($parameters);
-            $exercise = Exercises::findBy("id", $data["exercise"]["id"])[0];
-            $fields = Fields::getFields($data["exercise"]["id"]);
+            $exercise = $data["exercise"];
+            $fields = Fields::getFields($exercise["id"]);
             $fulfillments = Fulfillments::getFulfillmentsWithAnswers("exercise_id", $exercise["id"]);
 
             include_once PAGE_DIR . "/ExerciseResults.php";
